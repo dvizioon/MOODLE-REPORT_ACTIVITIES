@@ -1,0 +1,53 @@
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+*~
+
+# Editors / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-*
+.project
+.settings/
+.classpath
+
+# Moodle / PHP local
+config.php
+*.log
+composer.phar
+/vendor/
+
+# Build / packages
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+dist/
+build/
+node_modules/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Temp / cache
+tmp/
+temp/
+cache/
+*.cache
+*.tmp
+
+# Tests / coverage
+.phpunit.result.cache
+coverage/
+.phpstan/
+psalm-cache/
+
+# Remount / sync noise
+*.orig
+*.rej
+*.bak
