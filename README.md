@@ -23,8 +23,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/dvizioon/MOODLE_REPORT_ACTIVITY">Repositório</a> ·
-  <a href="https://github.com/dvizioon/MOODLE_REPORT_ACTIVITY/issues">Issues</a> ·
+  <a href="https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES">Repositório</a> ·
+  <a href="https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES/issues">Issues</a> ·
   <a href="mailto:danielmartinsjob@gmail.com">Contato</a>
 </p>
 
@@ -131,8 +131,8 @@ Todas que têm **item de nota** no caderno (`itemtype = mod`):
 
 ## Links
 
-- [Repositório](https://github.com/dvizioon/MOODLE_REPORT_ACTIVITY)
-- [Issues / bug tracker](https://github.com/dvizioon/MOODLE_REPORT_ACTIVITY/issues)
+- [Repositório](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES)
+- [Issues / bug tracker](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES/issues)
 
 ---
 
@@ -145,6 +145,7 @@ Todas que têm **item de nota** no caderno (`itemtype = mod`):
 - **Filtros / condições / audiência / cronogramas** do próprio Moodle.
 - **Multi-idioma:** EN + pt_BR.
 - **Privacy null provider** — não armazena dados extras.
+- **Testes** PHPUnit + Behat (`@report_activities`).
 
 ## Campos de nota (detalhe)
 
@@ -175,6 +176,9 @@ activities/
 ├── settings.php                # Link admin → Report builder
 ├── index.php                   # Redirect → /reportbuilder/
 ├── README.md
+├── pix/
+│   ├── logo.png / logo.svg     # Marketplace / README
+│   └── monologo.svg            # Ícone monocromático do Moodle
 ├── db/
 │   └── access.php              # report/activities:view
 ├── classes/
@@ -189,6 +193,9 @@ activities/
 ├── lang/
 │   ├── en/report_activities.php
 │   └── pt_br/report_activities.php
+├── tests/
+│   ├── reportbuilder/datasource/activities_test.php
+│   └── behat/activities_report.feature
 └── screenshots/
     ├── entrarRelatorio.png
     ├── escolherAtividade.png
@@ -201,12 +208,18 @@ activities/
 
 ### Via Git (recomendado)
 
+No Moodle **5.2**, o código dos plugins fica em `public/`:
+
 ```bash
 cd /caminho/do/moodle/public/report
-git clone https://github.com/dvizioon/MOODLE_REPORT_ACTIVITY.git activities
+git clone https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES.git activities
 ```
 
-Depois: **Administração do site → Notificações** (ou `php admin/cli/upgrade.php`).
+Depois: **Administração do site → Notificações** (ou, na raiz do Moodle):
+
+```bash
+php public/admin/cli/upgrade.php
+```
 
 ### Via ZIP
 
@@ -225,6 +238,7 @@ Depois: **Administração do site → Notificações** (ou `php admin/cli/upgrad
 | Construtor | `/reportbuilder/index.php` |
 | Plugin | `public/report/activities` |
 | Componente | `report_activities` |
+| Frankenstyle | `report_activities` |
 
 ---
 
@@ -240,17 +254,17 @@ Depois: **Administração do site → Notificações** (ou `php admin/cli/upgrad
 - [x] Lang EN + pt_BR
 - [x] Privacy null provider
 - [x] Screenshots + README
+- [x] Testes PHPUnit + Behat (`@report_activities`)
 
 ### Próximos passos (ideias)
 
 - [ ] Coluna opcional de **peso do item** / categoria (ainda por atividade, sem total do curso)
 - [ ] Opção de incluir **total do curso** (`itemtype = course`) como fonte separada ou coluna extra
 - [ ] Filtro rápido “só questionários” / “só tarefas” no setup padrão
-- [ ] Testes PHPUnit / Behat do datasource
 - [ ] Suporte declarado a mais versões Moodle (5.1 / 5.3) após validação
 - [ ] Documentação em vídeo (criar relatório do zero → exportar CSV)
 
-Sugestões e bugs: [Issues](https://github.com/dvizioon/MOODLE_REPORT_ACTIVITY/issues).
+Sugestões e bugs: [Issues](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES/issues).
 
 ---
 
@@ -260,17 +274,18 @@ Null provider — o plugin **não grava** dados pessoais. Só lê tabelas já ex
 
 ## Testes
 
-### PHPUnit (recomendado)
+No Moodle **5.2**, os CLIs ficam em `public/admin/…`. Rode **sempre a partir da raiz do Moodle** (onde estão `config.php` e `vendor/`).
 
-Do diretório raiz do Moodle (onde está o `phpunit.xml`):
+### PHPUnit
 
 ```bash
 # Inicializar PHPUnit uma vez (se ainda não fez)
-php admin/tool/phpunit/cli/init.php
+php public/admin/tool/phpunit/cli/init.php
 
-# Rodar só os testes deste plugin
+# Só este plugin
 vendor/bin/phpunit --testsuite report_activities_testsuite
-# ou pelo caminho:
+
+# Ou pelo arquivo
 vendor/bin/phpunit public/report/activities/tests/reportbuilder/datasource/activities_test.php
 ```
 
@@ -280,10 +295,10 @@ Cobre: fonte disponível no Report Builder, colunas padrão, nota final / % / 0�
 
 ```bash
 # Inicializar Behat (uma vez)
-php admin/tool/behat/cli/init.php
+php public/admin/tool/behat/cli/init.php
 
-# Rodar features deste plugin
-php admin/tool/behat/cli/run.php --tags=@report_activities
+# Features deste plugin
+php public/admin/tool/behat/cli/run.php --tags=@report_activities
 ```
 
 Cobre: criar relatório customizado com fonte **Activities** na UI.
@@ -316,4 +331,5 @@ Plugin Moodle — **GNU GPL v3 or later** (mesmo license do Moodle).
 - Fonte Report Builder: **Activities**.
 - Nota bruta (atividade) + nota final (caderno), %, escala 0–10.
 - Lang packs EN + pt_BR.
-- Screenshots, README explícito e roadmap.
+- Screenshots, README e testes PHPUnit/Behat.
+- Repositório: [dvizioon/MOODLE-REPORT-ACTIVITIES](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES).
