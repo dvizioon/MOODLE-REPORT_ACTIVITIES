@@ -16,8 +16,8 @@
   <img src="https://img.shields.io/badge/PLUGIN-report__activities-1B53A4?style=for-the-badge" />
   <img src="https://img.shields.io/badge/TYPE-Reports-59666C?style=for-the-badge" />
   <br />
-  <img src="https://img.shields.io/badge/VERSION-1.3.5-success?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/BUILD-2026101600-informational?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/VERSION-1.3.6-success?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/BUILD-2026101601-informational?style=for-the-badge" />
   <img src="https://img.shields.io/badge/MATURITY-Stable-2ea44f?style=for-the-badge" />
   <img src="https://img.shields.io/badge/LICENSE-GPL--3.0-blue?style=for-the-badge" />
 </p>
@@ -27,13 +27,11 @@
   <a href="mailto:danielmartinsjob@gmail.com">Contato</a>
 </p>
 
-> Nome recomendado do repositório: `moodle-report_activities`. Pacote de release: `git archive` (sem pasta `.git`).
-
 ---
 
 ## O que é este plugin?
 
-O Moodle já tem o **Construtor de Relatórios (Report Builder)**. Este plugin **não inventa outra tela de relatório** — ele **encaixa uma fonte de dados nova** chamada **Activities / Atividades**.
+O Moodle já tem o **Construtor de Relatórios (Report Builder)**. Este plugin **não inventa outra tela de relatório** — ele adiciona fontes do Report Builder: **Atividades** e **Nota final**.
 
 Assim você monta relatórios personalizados com:
 
@@ -45,7 +43,7 @@ Assim você monta relatórios personalizados com:
 | **Nota** | Nota bruta da atividade, **nota final no caderno**, %, nota 0–10, feedback |
 
 > [!IMPORTANT]
-> Tudo roda **dentro do Report Builder** (`/reportbuilder/index.php`): colunas, filtros, audiência, agendamento e exportação CSV/Excel já são do Moodle. O plugin só entrega a **fonte** certa.
+> Tudo roda **dentro do Report Builder** (`/reportbuilder/index.php`): colunas, filtros, audiência, agendamento e exportação CSV/Excel já são do Moodle. O plugin só entrega as **fontes**.
 
 ---
 
@@ -97,7 +95,7 @@ Todas que têm **item de nota** no caderno (`itemtype = mod`):
 - Questionário, Tarefa, Fórum (se avaliado), Lição, Workshop, SCORM…
 - **Qualquer plugin `mod_*` novo** que grave nota — aparece sozinho
 
-**Não entram como linha:** página, arquivo, URL, rótulo (sem nota); totais de categoria. O total do curso não vira linha — aparece na coluna **Nota final do curso**.
+**Não entram como linha:** página, arquivo, URL, rótulo (sem nota); totais de categoria. O total do curso fica na fonte **Nota final**.
 
 ---
 
@@ -141,6 +139,7 @@ Todas que têm **item de nota** no caderno (`itemtype = mod`):
 
 - **Integração Report Builder** — fonte nativa, sem tela paralela.
 - **Uma linha = aluno × atividade com nota** no caderno.
+- Fonte separada **Nota final** para o total do curso.
 - **Nota bruta** (módulo) + **nota final** (caderno).
 - **Porcentagem** e **nota 0–10** (half-up: `7.3→7`, `7.5→8`).
 - **Filtros / condições / audiência / cronogramas** do próprio Moodle.
@@ -159,8 +158,6 @@ Todas que têm **item de nota** no caderno (`itemtype = mod`):
 | **Nota (0–10)** | Mesma proporção × 10, arredondada | Exibição pedagógica rápida |
 | **Feedback** | Caderno | Comentário do professor |
 
-Cada linha continua sendo uma atividade. A coluna **Nota final do curso** repete, na mesma linha, o total já gravado no caderno daquele aluno.
-
 ## Tecnologias / API Moodle
 
 - **Moodle 5.2** — `public/report/…`
@@ -173,10 +170,12 @@ Cada linha continua sendo uma atividade. A coluna **Nota final do curso** repete
 ```bash
 activities/
 │
-├── version.php                 # report_activities · 1.3.0
+├── version.php                 # report_activities · 1.3.6
 ├── settings.php                # Link admin → Report builder
 ├── index.php                   # Redirect → /reportbuilder/
+├── LICENSE
 ├── README.md
+├── README.pt_br.md
 ├── pix/
 │   ├── logo.png / logo.svg     # Marketplace / README
 │   └── monologo.svg            # Ícone monocromático do Moodle
@@ -187,15 +186,19 @@ activities/
 │   │   └── provider.php        # null_provider
 │   └── reportbuilder/
 │       ├── datasource/
-│       │   └── activities.php  # Fonte "Activities"
+│       │   ├── activities.php  # Fonte "Activities"
+│       │   └── coursefinal.php # Fonte "Nota final"
 │       └── local/entities/
 │           ├── grade_item.php  # Atividade (nome, tipo, max/min)
-│           └── grade.php       # Nota bruta, final, %, 0–10, feedback
+│           ├── grade.php       # Nota bruta, final, %, 0–10, feedback
+│           └── course_total.php
 ├── lang/
 │   ├── en/report_activities.php
 │   └── pt_br/report_activities.php
 ├── tests/
-│   ├── reportbuilder/datasource/activities_test.php
+│   ├── reportbuilder/datasource/
+│   │   ├── activities_test.php
+│   │   └── coursefinal_test.php
 │   └── behat/activities_report.feature
 └── screenshots/
     ├── entrarRelatorio.png
@@ -231,7 +234,7 @@ php public/admin/cli/upgrade.php
 ### Uso rápido
 
 1. Abra `/reportbuilder/index.php`
-2. **Novo relatório** → fonte **Atividades** / **Activities**
+2. **Novo relatório** → fonte **Atividades** ou **Nota final**
 3. Monte colunas (usuário, curso, atividade, nota bruta, **nota final**…), filtros e agendamentos
 
 | Recurso | Caminho |
@@ -245,9 +248,10 @@ php public/admin/cli/upgrade.php
 
 ## Roadmap
 
-### Feito (v1.3.0)
+### Feito (v1.3.6)
 
 - [x] Fonte **Activities** no Report Builder (Moodle 5.2)
+- [x] Fonte **Nota final** (total do caderno do curso)
 - [x] Contextos: usuário, curso, categoria, atividade, nota
 - [x] **Nota bruta** (atividade) + **nota final** (caderno de notas)
 - [x] Porcentagem e nota 0–10 (arredondamento half-up)
@@ -259,10 +263,9 @@ php public/admin/cli/upgrade.php
 
 ### Próximos passos (ideias)
 
-- [x] Coluna **Nota final do curso** (`itemtype = course`, valor do caderno)
 - [ ] Coluna opcional de **peso do item** / categoria (ainda por atividade)
 - [ ] Filtro rápido “só questionários” / “só tarefas” no setup padrão
-- [ ] Suporte declarado a mais versões Moodle (5.1 / 5.3) após validação
+- [ ] Suporte declarado a mais versões Moodle após validação
 - [ ] Documentação em vídeo (criar relatório do zero → exportar CSV)
 
 Sugestões e bugs: [Issues](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES/issues).
@@ -288,6 +291,7 @@ vendor/bin/phpunit --testsuite report_activities_testsuite
 
 # Ou pelo arquivo
 vendor/bin/phpunit public/report/activities/tests/reportbuilder/datasource/activities_test.php
+vendor/bin/phpunit public/report/activities/tests/reportbuilder/datasource/coursefinal_test.php
 ```
 
 Cobre: fonte disponível no Report Builder, colunas padrão, nota final / % / 0–10.
@@ -308,8 +312,10 @@ Arquivos:
 
 ```
 tests/
-├── reportbuilder/datasource/activities_test.php   # PHPUnit
-└── behat/activities_report.feature                # Behat
+├── reportbuilder/datasource/
+│   ├── activities_test.php    # PHPUnit
+│   └── coursefinal_test.php   # PHPUnit
+└── behat/activities_report.feature
 ```
 
 ## Contato
@@ -323,18 +329,3 @@ Dúvidas e suporte: [danielmartinsjob@gmail.com](mailto:danielmartinsjob@gmail.c
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue?style=for-the-badge)](https://www.gnu.org/licenses/gpl-3.0)
 
 Plugin Moodle — **GNU GPL v3 or later** (mesmo license do Moodle).
-
-## Changelog
-
-### 1.3.1 (`2026092501`)
-
-- Coluna **Nota final do curso**: `grade_grades.finalgrade` do item de curso (caderno), sem recálculo.
-
-### 1.3.0 (`2026092303`)
-
-- Frankenstyle `report_activities` (inglês).
-- Fonte Report Builder: **Activities**.
-- Nota bruta (atividade) + nota final (caderno), %, escala 0–10.
-- Lang packs EN + pt_BR.
-- Screenshots, README e testes PHPUnit/Behat.
-- Repositório: [dvizioon/MOODLE-REPORT-ACTIVITIES](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES).

@@ -27,8 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 /** @var stdClass $plugin */
 $plugin = $plugin ?? new stdClass();
 $plugin->component = 'report_activities';
-$plugin->version   = 2026101600;
+$plugin->version   = 2026101601;
 $plugin->requires  = 2026042000;
 $plugin->supported = [502, 502];
 $plugin->maturity  = MATURITY_STABLE;
-$plugin->release   = '1.3.5';
+$plugin->release   = '1.3.6';

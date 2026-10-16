@@ -22,7 +22,6 @@ use core_reportbuilder\manager;
 use core_reportbuilder_generator;
 use core_reportbuilder\tests\core_reportbuilder_testcase;
 use grade_item;
-use PHPUnit\Framework\Assert;
 
 /**
  * Unit tests for the course final grade datasource.
@@ -31,23 +30,45 @@ use PHPUnit\Framework\Assert;
  * @covers    \report_activities\reportbuilder\datasource\coursefinal
  * @copyright 2026 Dvizioon
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @method void assertTrue(mixed $condition, string $message = '')
+ * @method void assertFalse(mixed $condition, string $message = '')
+ * @method void assertEquals(mixed $expected, mixed $actual, string $message = '')
+ * @method void assertCount(int $expectedCount, mixed $haystack, string $message = '')
+ * @method void assertStringContainsString(string $needle, string $haystack, string $message = '')
+ * @method void assertNotFalse(mixed $condition, string $message = '')
  */
 final class coursefinal_test extends core_reportbuilder_testcase {
 
     /**
-     * Datasource is discoverable by Report Builder.
+     * Datasource is discoverable by Report Builder when the user has the view capability.
      */
     public function test_datasource_is_available(): void {
+        $this->resetAfterTest();
+        $this->setAdminUser();
+
+        $this->assertTrue(coursefinal::is_available());
+
         $sources = manager::get_report_datasources();
         $found = false;
         foreach ($sources as $componentsources) {
             if (array_key_exists(coursefinal::class, $componentsources)) {
                 $found = true;
-                Assert::assertEquals(get_string('coursefinal', 'report_activities'), $componentsources[coursefinal::class]);
+                $this->assertEquals(get_string('coursefinal', 'report_activities'), $componentsources[coursefinal::class]);
                 break;
             }
         }
-        Assert::assertTrue($found, 'Course final grade datasource should appear in Report Builder sources');
+        $this->assertTrue($found, 'Course final grade datasource should appear in Report Builder sources');
+    }
+
+    /**
+     * Datasource is hidden when the user lacks report/activities:view.
+     */
+    public function test_datasource_unavailable_without_capability(): void {
+        $this->resetAfterTest();
+        $user = $this->getDataGenerator()->create_user();
+        $this->setUser($user);
+
+        $this->assertFalse(coursefinal::is_available());
     }
 
     /**
@@ -69,7 +90,7 @@ final class coursefinal_test extends core_reportbuilder_testcase {
             'itemtype' => 'course',
             'courseid' => $course->id,
         ]);
-        Assert::assertNotFalse($courseitem);
+        $this->assertNotFalse($courseitem);
         $courseitem->update_final_grade($student->id, 8.7);
 
         /** @var core_reportbuilder_generator $generator */
@@ -81,11 +102,11 @@ final class coursefinal_test extends core_reportbuilder_testcase {
         ]);
 
         $content = $this->get_custom_report_content($report->get('id'));
-        Assert::assertCount(1, $content);
+        $this->assertCount(1, $content);
 
         $row = array_values($content[0]);
-        Assert::assertStringContainsString(fullname($student), $row[0]);
-        Assert::assertStringContainsString($course->fullname, $row[1]);
-        Assert::assertEquals(format_float(8.7, 2), $row[2]);
+        $this->assertStringContainsString(fullname($student), $row[0]);
+        $this->assertStringContainsString($course->fullname, $row[1]);
+        $this->assertEquals(format_float(8.7, 2), $row[2]);
     }
 }

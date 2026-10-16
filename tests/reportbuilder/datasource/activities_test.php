@@ -22,7 +22,6 @@ use core_reportbuilder\manager;
 use core_reportbuilder_generator;
 use core_reportbuilder\tests\core_reportbuilder_testcase;
 use grade_item;
-use PHPUnit\Framework\Assert;
 
 /**
  * Unit tests for the Activities report builder datasource.
@@ -31,6 +30,13 @@ use PHPUnit\Framework\Assert;
  * @covers    \report_activities\reportbuilder\datasource\activities
  * @copyright 2026 Dvizioon
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @method void assertTrue(mixed $condition, string $message = '')
+ * @method void assertFalse(mixed $condition, string $message = '')
+ * @method void assertEquals(mixed $expected, mixed $actual, string $message = '')
+ * @method void assertCount(int $expectedCount, mixed $haystack, string $message = '')
+ * @method void assertStringContainsString(string $needle, string $haystack, string $message = '')
+ * @method void assertNotFalse(mixed $condition, string $message = '')
+ * @method void assertNotSame(mixed $expected, mixed $actual, string $message = '')
  */
 final class activities_test extends core_reportbuilder_testcase {
 
@@ -43,19 +49,35 @@ final class activities_test extends core_reportbuilder_testcase {
     }
 
     /**
-     * Datasource is discoverable by Report Builder.
+     * Datasource is discoverable by Report Builder when the user has the view capability.
      */
     public function test_datasource_is_available(): void {
+        $this->resetAfterTest();
+        $this->setAdminUser();
+
+        $this->assertTrue(activities::is_available());
+
         $sources = manager::get_report_datasources();
         $found = false;
         foreach ($sources as $componentsources) {
             if (array_key_exists(activities::class, $componentsources)) {
                 $found = true;
-                Assert::assertEquals(get_string('activities', 'report_activities'), $componentsources[activities::class]);
+                $this->assertEquals(get_string('activities', 'report_activities'), $componentsources[activities::class]);
                 break;
             }
         }
-        Assert::assertTrue($found, 'Activities datasource should appear in Report Builder sources');
+        $this->assertTrue($found, 'Activities datasource should appear in Report Builder sources');
+    }
+
+    /**
+     * Datasource is hidden when the user lacks report/activities:view.
+     */
+    public function test_datasource_unavailable_without_capability(): void {
+        $this->resetAfterTest();
+        $user = $this->getDataGenerator()->create_user();
+        $this->setUser($user);
+
+        $this->assertFalse(activities::is_available());
     }
 
     /**
@@ -84,7 +106,7 @@ final class activities_test extends core_reportbuilder_testcase {
             'iteminstance' => $assign->id,
             'courseid' => $course->id,
         ]);
-        Assert::assertNotFalse($gradeitem);
+        $this->assertNotFalse($gradeitem);
         $gradeitem->update_final_grade($student->id, 73.0);
 
         /** @var core_reportbuilder_generator $generator */
@@ -96,17 +118,17 @@ final class activities_test extends core_reportbuilder_testcase {
         ]);
 
         $content = $this->get_custom_report_content($report->get('id'));
-        Assert::assertCount(1, $content);
+        $this->assertCount(1, $content);
 
         $row = array_values($content[0]);
         // Default: user link, course link, activity name, type, %, 0-10, final grade.
-        Assert::assertStringContainsString(fullname($student), $row[0]);
-        Assert::assertStringContainsString($course->fullname, $row[1]);
-        Assert::assertEquals('Trabalho 1', $row[2]);
-        Assert::assertEquals(get_string('modulename', 'mod_assign'), $row[3]);
-        Assert::assertEquals('73%', $row[4]);
-        Assert::assertEquals('7', $row[5]);
-        Assert::assertEquals(format_float(73.0, 2), $row[6]);
+        $this->assertStringContainsString(fullname($student), $row[0]);
+        $this->assertStringContainsString($course->fullname, $row[1]);
+        $this->assertEquals('Trabalho 1', $row[2]);
+        $this->assertEquals(get_string('modulename', 'mod_assign'), $row[3]);
+        $this->assertEquals('73%', $row[4]);
+        $this->assertEquals('7', $row[5]);
+        $this->assertEquals(format_float(73.0, 2), $row[6]);
     }
 
     /**
@@ -153,15 +175,15 @@ final class activities_test extends core_reportbuilder_testcase {
         $generator->create_column(['reportid' => $report->get('id'), 'uniqueidentifier' => 'grade:gradeoutof10']);
 
         $content = $this->get_custom_report_content($report->get('id'));
-        Assert::assertCount(1, $content);
+        $this->assertCount(1, $content);
 
         $row = array_values($content[0]);
-        Assert::assertEquals(fullname($student), $row[0]);
-        Assert::assertEquals('Prova', $row[1]);
+        $this->assertEquals(fullname($student), $row[0]);
+        $this->assertEquals('Prova', $row[1]);
         // Raw may match final when graded via update_final_grade; both must be present from gradebook.
-        Assert::assertNotSame('', $row[3]);
-        Assert::assertEquals(format_float(8.5, 2), $row[3]);
-        Assert::assertEquals('85%', $row[4]);
-        Assert::assertEquals('9', $row[5]); // 8.5 on 0–10 scale → 9 (half-up).
+        $this->assertNotSame('', $row[3]);
+        $this->assertEquals(format_float(8.5, 2), $row[3]);
+        $this->assertEquals('85%', $row[4]);
+        $this->assertEquals('9', $row[5]); // 8.5 on 0–10 scale → 9 (half-up).
     }
 }

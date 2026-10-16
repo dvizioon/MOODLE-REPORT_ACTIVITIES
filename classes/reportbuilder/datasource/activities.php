@@ -43,6 +43,17 @@ class activities extends datasource {
     }
 
     /**
+     * Whether this report source is available to the current user.
+     *
+     * @return bool
+     */
+    public static function is_available(): bool {
+        /** @var \core\context $context */
+        $context = \core\context\system::instance();
+        return has_capability('report/activities:view', $context);
+    }
+
+    /**
      * Initialise report.
      */
     protected function initialise(): void {
