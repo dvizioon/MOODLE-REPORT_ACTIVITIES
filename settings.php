@@ -30,8 +30,8 @@ global $ADMIN;
 $ADMIN->add('reports', new admin_externalpage(
     'reportactivities',
     get_string('pluginname', 'report_activities'),
-    new moodle_url('/reportbuilder/index.php'),
-    'moodle/reportbuilder:view'
+    new moodle_url('/report/activities/index.php'),
+    'report/activities:view'
 ));
 
 $settings = null;

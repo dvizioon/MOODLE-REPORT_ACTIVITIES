@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Redirect to report builder (datasources live there).
+ * Entry point — requires view capability, then opens Report Builder.
  *
  * @package   report_activities
  * @copyright 2026 Dvizioon
@@ -24,5 +24,9 @@
 
 require(__DIR__ . '/../../config.php');
 require_login();
+
+/** @var \core\context $context */
+$context = \core\context\system::instance();
+require_capability('report/activities:view', $context);
 
 redirect(new moodle_url('/reportbuilder/index.php'));

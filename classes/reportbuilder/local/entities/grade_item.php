@@ -18,10 +18,12 @@ declare(strict_types=1);
 
 namespace report_activities\reportbuilder\local\entities;
 
+use context_course;
 use core\lang_string;
 use core_reportbuilder\local\entities\base;
 use core_reportbuilder\local\filters\{number, select, text};
 use core_reportbuilder\local\report\{column, filter};
+use stdClass;
 
 /**
  * Grade item (activity) entity for the Activities report source.
@@ -60,7 +62,7 @@ class grade_item extends base {
     protected function get_available_columns(): array {
         $gradeitem = $this->get_table_alias('grade_items');
 
-        // Activity name.
+        // Activity name (multilang + filters via format_string).
         $columns[] = (new column(
             'name',
             new lang_string('activityname', 'report_activities'),
@@ -69,7 +71,19 @@ class grade_item extends base {
             ->add_joins($this->get_joins())
             ->set_type(column::TYPE_TEXT)
             ->add_field("{$gradeitem}.itemname")
-            ->set_is_sortable(true);
+            ->add_field("{$gradeitem}.courseid", 'courseid')
+            ->set_is_sortable(true)
+            ->add_callback(static function(?string $name, stdClass $row): string {
+                if ($name === null || $name === '') {
+                    return '';
+                }
+                $courseid = (int) ($row->courseid ?? 0);
+                $options = ['context' => context_course::instance(SITEID)];
+                if ($courseid > 0) {
+                    $options['context'] = context_course::instance($courseid);
+                }
+                return format_string($name, true, $options);
+            });
 
         // Activity type (module name, e.g. quiz / assign).
         $columns[] = (new column(

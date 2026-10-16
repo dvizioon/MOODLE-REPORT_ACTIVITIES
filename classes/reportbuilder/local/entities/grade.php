@@ -18,11 +18,13 @@ declare(strict_types=1);
 
 namespace report_activities\reportbuilder\local\entities;
 
+use context_course;
 use core\lang_string;
 use core_reportbuilder\local\entities\base;
 use core_reportbuilder\local\filters\{date, number, text};
 use core_reportbuilder\local\helpers\format;
 use core_reportbuilder\local\report\{column, filter};
+use stdClass;
 
 /**
  * Grade entity for the Activities report source.
@@ -133,7 +135,7 @@ class grade extends base {
                 return $value === null || $value === '' ? '' : (string) (int) $value;
             });
 
-        // Feedback.
+        // Feedback (HTML from graders — format_text + filters / purifier).
         $columns[] = (new column(
             'feedback',
             new lang_string('feedback', 'report_activities'),
@@ -142,7 +144,21 @@ class grade extends base {
             ->add_joins($this->get_joins())
             ->set_type(column::TYPE_LONGTEXT)
             ->add_field("{$grade}.feedback")
-            ->set_is_sortable(false);
+            ->add_field("{$grade}.feedbackformat")
+            ->add_field("{$gradeitem}.courseid", 'courseid')
+            ->set_is_sortable(false)
+            ->add_callback(static function(?string $value, stdClass $row): string {
+                if ($value === null || $value === '') {
+                    return '';
+                }
+                $format = (int) ($row->feedbackformat ?? FORMAT_MOODLE);
+                $courseid = (int) ($row->courseid ?? 0);
+                $options = [];
+                if ($courseid > 0) {
+                    $options['context'] = context_course::instance($courseid);
+                }
+                return format_text($value, $format, $options);
+            });
 
         // Time modified.
         $columns[] = (new column(

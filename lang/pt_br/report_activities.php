@@ -29,6 +29,7 @@ $string['privacy:metadata'] = 'O plugin Relatórios de atividades não armazena 
 $string['activities:view'] = 'Ver fontes de relatório de atividades';
 
 $string['activities'] = 'Atividades';
+$string['coursefinal'] = 'Nota final';
 $string['activity'] = 'Atividade';
 $string['activityname'] = 'Nome da atividade';
 $string['activitytype'] = 'Tipo de atividade';

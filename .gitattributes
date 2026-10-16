@@ -1,0 +1,7 @@
+# Keep screenshots in the repo; omit them from release archives.
+screenshots/ export-ignore
+screenshots/** export-ignore
+
+# Local git metadata must never ship in the Moodle plugin zip.
+.git/ export-ignore
+.git/** export-ignore

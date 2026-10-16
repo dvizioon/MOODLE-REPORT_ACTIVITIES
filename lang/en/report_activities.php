@@ -29,6 +29,7 @@ $string['privacy:metadata'] = 'The Activities reports plugin does not store any 
 $string['activities:view'] = 'View Activities report sources';
 
 $string['activities'] = 'Activities';
+$string['coursefinal'] = 'Final grade';
 $string['activity'] = 'Activity';
 $string['activityname'] = 'Activity name';
 $string['activitytype'] = 'Activity type';
