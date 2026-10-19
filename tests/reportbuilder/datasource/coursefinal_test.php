@@ -79,11 +79,9 @@ final class coursefinal_test extends core_reportbuilder_testcase {
             'lastname' => 'Silva',
         ]);
 
-        $courseitem = grade_item::fetch([
-            'itemtype' => 'course',
-            'courseid' => $course->id,
-        ]);
-        $this->assertNotFalse($courseitem);
+        // Ensures the course total grade item exists (creates it if needed).
+        $courseitem = grade_item::fetch_course_item($course->id);
+        $this->assertInstanceOf(grade_item::class, $courseitem);
         $courseitem->update_final_grade($student->id, 8.7);
 
         /** @var core_reportbuilder_generator $generator */
