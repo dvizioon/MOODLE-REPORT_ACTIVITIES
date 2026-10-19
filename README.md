@@ -23,7 +23,8 @@
 </p>
 
 <p align="center">
-  <a href="README.pt_br.md">Documentação em português</a> ·
+  <strong>English</strong> ·
+  <a href="README.pt_br.md">Português (Brasil)</a> ·
   <a href="mailto:danielmartinsjob@gmail.com">Contact</a>
 </p>
 
