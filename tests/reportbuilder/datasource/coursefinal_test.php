@@ -65,7 +65,7 @@ final class coursefinal_test extends core_reportbuilder_testcase {
     }
 
     /**
-     * Default columns read the stored course total, not an activity grade.
+     * Default columns read the course total after gradebook aggregation.
      */
     public function test_datasource_default(): void {
         global $CFG;
@@ -79,10 +79,25 @@ final class coursefinal_test extends core_reportbuilder_testcase {
             'lastname' => 'Silva',
         ]);
 
-        // Ensures the course total grade item exists (creates it if needed).
+        // Grade an activity, then regrade so the course total is calculated like the grader report.
+        $assign = $this->getDataGenerator()->create_module('assign', [
+            'course' => $course->id,
+            'name' => 'Trabalho',
+            'grade' => 100,
+        ]);
+        $activityitem = grade_item::fetch([
+            'itemtype' => 'mod',
+            'itemmodule' => 'assign',
+            'iteminstance' => $assign->id,
+            'courseid' => $course->id,
+        ]);
+        $this->assertInstanceOf(grade_item::class, $activityitem);
+        $activityitem->update_final_grade($student->id, 87.0);
+        grade_regrade_final_grades($course->id);
+
         $courseitem = grade_item::fetch_course_item($course->id);
-        $this->assertInstanceOf(grade_item::class, $courseitem);
-        $courseitem->update_final_grade($student->id, 8.7);
+        $coursegrade = $courseitem->get_final($student->id);
+        $this->assertNotNull($coursegrade->finalgrade);
 
         /** @var core_reportbuilder_generator $generator */
         $generator = $this->getDataGenerator()->get_plugin_generator('core_reportbuilder');
@@ -98,6 +113,6 @@ final class coursefinal_test extends core_reportbuilder_testcase {
         $row = array_values($content[0]);
         $this->assertStringContainsString(fullname($student), $row[0]);
         $this->assertStringContainsString($course->fullname, $row[1]);
-        $this->assertEquals(format_float(8.7, 2), $row[2]);
+        $this->assertEquals(format_float((float) $coursegrade->finalgrade, 2), $row[2]);
     }
 }

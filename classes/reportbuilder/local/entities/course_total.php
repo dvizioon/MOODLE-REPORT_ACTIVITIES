@@ -82,14 +82,17 @@ class course_total extends base {
 
                 $userid = (int) ($row->userid ?? 0);
                 $courseid = (int) ($row->courseid ?? 0);
+                $stored = ($value === null || $value === '') ? '' : format_float((float) $value, 2);
+
                 if ($userid === 0 || $courseid === 0) {
-                    return $value === null ? '' : format_float((float) $value, 2);
+                    return $stored;
                 }
 
                 $item = grade_get_course_grades($courseid, $userid);
                 $coursegrade = $item->grades[$userid]->grade ?? null;
                 if ($coursegrade === null || $coursegrade === false || $coursegrade === '') {
-                    return '';
+                    // Prefer the official API; fall back to the stored gradebook value.
+                    return $stored;
                 }
                 return format_float((float) $coursegrade, 2);
             });

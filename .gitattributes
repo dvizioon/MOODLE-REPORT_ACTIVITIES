@@ -7,3 +7,7 @@ screenshots/** export-ignore
 # Local git metadata must never ship in the Moodle plugin zip.
 .git/ export-ignore
 .git/** export-ignore
+
+# IDE stubs are not part of the shipped plugin.
+tests/stubs/ export-ignore
+tests/stubs/** export-ignore
