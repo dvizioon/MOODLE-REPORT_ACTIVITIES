@@ -8,7 +8,7 @@
 
 <p align="center">
   Fonte do <strong>Report Builder</strong> para Moodle 5.2<br />
-  Aluno · Curso · Tipo de atividade · Nota da atividade · Nota final do curso · % · Nota 0–10
+  Aluno · Curso · Tipo de atividade · Nota da atividade · Nota final do curso · % · Nota 0-10
 </p>
 
 <p align="center">
@@ -32,7 +32,7 @@
 
 ## O que é este plugin?
 
-O Moodle já tem o **Construtor de Relatórios (Report Builder)**. Este plugin **não inventa outra tela de relatório** — ele adiciona fontes do Report Builder: **Atividades** e **Nota final**.
+O Moodle já tem o **Construtor de Relatórios (Report Builder)**. Este plugin **não inventa outra tela de relatório** - ele adiciona fontes do Report Builder: **Atividades** e **Nota final**.
 
 Assim você monta relatórios personalizados com:
 
@@ -41,7 +41,7 @@ Assim você monta relatórios personalizados com:
 | **Usuário** | Nome, e-mail, matrícula, campos de perfil |
 | **Curso** | Nome, shortname, categoria |
 | **Atividade** | Nome da atividade, tipo (Questionário, Tarefa…), nota máx/mín do item |
-| **Nota** | Nota bruta da atividade, **nota final no caderno**, %, nota 0–10, feedback |
+| **Nota** | Nota bruta da atividade, **nota final no caderno**, %, nota 0-10, feedback |
 
 > [!IMPORTANT]
 > Tudo roda **dentro do Report Builder** (`/reportbuilder/index.php`): colunas, filtros, audiência, agendamento e exportação CSV/Excel já são do Moodle. O plugin só entrega as **fontes**.
@@ -69,8 +69,8 @@ Assim você monta relatórios personalizados com:
 1. O aluno faz a atividade (ex.: questionário).
 2. O módulo manda a nota para o **caderno de notas**.
 3. O caderno guarda:
-   - **item de nota** daquela atividade (`grade_items`, `itemtype = mod`)
-   - **nota do aluno** naquele item (`grade_grades`)
+ - **item de nota** daquela atividade (`grade_items`, `itemtype = mod`)
+ - **nota do aluno** naquele item (`grade_grades`)
 4. O plugin lê isso e disponibiliza no Report Builder.
 
 ### Nota da atividade × Nota final (caderno)
@@ -78,9 +78,9 @@ Assim você monta relatórios personalizados com:
 | Campo no relatório | O que é de verdade | Tabela Moodle |
 |--------------------|--------------------|---------------|
 | **Nota bruta** (`rawgrade`) | Nota que o **módulo** enviou (valor cru da atividade) | `grade_grades.rawgrade` |
-| **Nota final** (`finalgrade`) | Nota **oficial no caderno de notas** daquele item — depois de normalização, override do professor, exclusão, etc. | `grade_grades.finalgrade` |
+| **Nota final** (`finalgrade`) | Nota **oficial no caderno de notas** daquele item - depois de normalização, override do professor, exclusão, etc. | `grade_grades.finalgrade` |
 | **Porcentagem** | Quanto a nota final representa entre min e max do item | calculado |
-| **Nota (0–10)** | A mesma proporção em escala 0–10, arredondada | calculado |
+| **Nota (0-10)** | A mesma proporção em escala 0-10, arredondada | calculado |
 
 > [!IMPORTANT]
 > **Atividades** lê a nota de cada atividade (`itemtype = mod`).
@@ -94,7 +94,7 @@ Assim você monta relatórios personalizados com:
 Todas que têm **item de nota** no caderno (`itemtype = mod`):
 
 - Questionário, Tarefa, Fórum (se avaliado), Lição, Workshop, SCORM…
-- **Qualquer plugin `mod_*` novo** que grave nota — aparece sozinho
+- **Qualquer plugin `mod_*` novo** que grave nota - aparece sozinho
 
 **Não entram como linha:** página, arquivo, URL, rótulo (sem nota); totais de categoria. O total do curso fica na fonte **Nota final**.
 
@@ -178,14 +178,14 @@ Objetivo: apresentar os mesmos dados em layout de cards.
 
 ## Funcionalidades
 
-- **Integração Report Builder** — fonte nativa, sem tela paralela.
+- **Integração Report Builder** - fonte nativa, sem tela paralela.
 - **Uma linha = aluno × atividade com nota** no caderno.
 - Fonte separada **Nota final** para o total do curso.
 - **Nota bruta** (módulo) + **nota final** (caderno).
-- **Porcentagem** e **nota 0–10** (half-up: `7.3→7`, `7.5→8`).
+- **Porcentagem** e **nota 0-10** (half-up: `7.3→7`, `7.5→8`).
 - **Filtros / condições / audiência / cronogramas** do próprio Moodle.
 - **Multi-idioma:** EN + pt_BR.
-- **Privacy null provider** — não armazena dados extras.
+- **Privacy null provider** - não armazena dados extras.
 - **Testes** PHPUnit + Behat (`@report_activities`).
 
 ## Campos de nota (detalhe)
@@ -195,16 +195,16 @@ Objetivo: apresentar os mesmos dados em layout de cards.
 | **Nota bruta** | Atividade → caderno (`rawgrade`) | “O que o módulo tirou” |
 | **Nota final** | Caderno de notas (`finalgrade`) | “O que vale no livro de notas daquela atividade” |
 | **Nota máxima / mínima** | Item de nota (`grademax` / `grademin`) | Escala do item |
-| **Porcentagem** | `((final − min) / (max − min)) × 100` | Ex.: `73%` |
-| **Nota (0–10)** | Mesma proporção × 10, arredondada | Exibição pedagógica rápida |
+| **Porcentagem** | `((final - min) / (max - min)) × 100` | Ex.: `73%` |
+| **Nota (0-10)** | Mesma proporção × 10, arredondada | Exibição pedagógica rápida |
 | **Feedback** | Caderno | Comentário do professor |
 
 ## Tecnologias / API Moodle
 
-- **Moodle 5.2** — `public/report/…`
-- **core_reportbuilder** — datasource + entities
-- **Gradebook** — `grade_items` / `grade_grades`
-- **Entidades core** — `user`, `course`, `course_category`
+- **Moodle 5.2** - `public/report/…`
+- **core_reportbuilder** - datasource + entities
+- **Gradebook** - `grade_items` / `grade_grades`
+- **Entidades core** - `user`, `course`, `course_category`
 
 ## Estrutura do Projeto
 
@@ -231,7 +231,7 @@ activities/
 │       │   └── coursefinal.php # Fonte "Nota final"
 │       └── local/entities/
 │           ├── grade_item.php  # Atividade (nome, tipo, max/min)
-│           ├── grade.php       # Nota bruta, final, %, 0–10, feedback
+│           ├── grade.php       # Nota bruta, final, %, 0-10, feedback
 │           └── course_total.php
 ├── lang/
 │   ├── en/report_activities.php
@@ -269,7 +269,7 @@ php public/admin/cli/upgrade.php
 ### Via ZIP
 
 1. O ZIP deve descompactar na pasta `activities/` (com `version.php` dentro).
-2. **Não** faça upload de ZIP por cima se a pasta `report/activities` já existir — use Notificações.
+2. **Não** faça upload de ZIP por cima se a pasta `report/activities` já existir - use Notificações.
 3. Ou copie a pasta manualmente para `public/report/activities` e rode o upgrade.
 
 ### Uso rápido
@@ -295,7 +295,7 @@ php public/admin/cli/upgrade.php
 - [x] Fonte **Nota final** (total do caderno do curso)
 - [x] Contextos: usuário, curso, categoria, atividade, nota
 - [x] **Nota bruta** (atividade) + **nota final** (caderno de notas)
-- [x] Porcentagem e nota 0–10 (arredondamento half-up)
+- [x] Porcentagem e nota 0-10 (arredondamento half-up)
 - [x] Filtros por curso, tipo de atividade, usuário
 - [x] Lang EN + pt_BR
 - [x] Privacy null provider
@@ -315,7 +315,7 @@ Sugestões e bugs: [Issues](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES
 
 ## Privacidade
 
-Null provider — o plugin **não grava** dados pessoais. Só lê tabelas já existentes (`user`, `course`, `grade_*`).
+Null provider - o plugin **não grava** dados pessoais. Só lê tabelas já existentes (`user`, `course`, `grade_*`).
 
 ## Testes
 
@@ -335,7 +335,7 @@ vendor/bin/phpunit public/report/activities/tests/reportbuilder/datasource/activ
 vendor/bin/phpunit public/report/activities/tests/reportbuilder/datasource/coursefinal_test.php
 ```
 
-Cobre: fonte disponível no Report Builder, colunas padrão, nota final / % / 0–10.
+Cobre: fonte disponível no Report Builder, colunas padrão, nota final / % / 0-10.
 
 ### Behat
 
@@ -369,4 +369,4 @@ Dúvidas e suporte: [danielmartinsjob@gmail.com](mailto:danielmartinsjob@gmail.c
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue?style=for-the-badge)](https://www.gnu.org/licenses/gpl-3.0)
 
-Plugin Moodle — **GNU GPL v3 or later** (mesmo license do Moodle).
+Plugin Moodle - **GNU GPL v3 or later** (mesmo license do Moodle).
