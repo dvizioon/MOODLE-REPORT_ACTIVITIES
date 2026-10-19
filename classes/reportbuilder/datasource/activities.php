@@ -32,7 +32,6 @@ use report_activities\reportbuilder\local\entities\{grade, grade_item};
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class activities extends datasource {
-
     /**
      * Return user friendly name of the report source.
      *

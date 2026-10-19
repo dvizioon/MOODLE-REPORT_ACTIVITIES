@@ -24,24 +24,23 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Activities reports';
-$string['privacy:metadata'] = 'The Activities reports plugin does not store any personal data.';
-$string['activities:view'] = 'View Activities report sources';
-
 $string['activities'] = 'Activities';
-$string['coursefinal'] = 'Final grade';
+$string['activities:view'] = 'View Activities report sources';
 $string['activity'] = 'Activity';
 $string['activityname'] = 'Activity name';
 $string['activitytype'] = 'Activity type';
+$string['coursefinal'] = 'Final grade';
 $string['entitygrade'] = 'Grade';
 $string['entitygradeitem'] = 'Activity';
 $string['feedback'] = 'Feedback';
 $string['finalgrade'] = 'Final grade';
 $string['grademax'] = 'Maximum grade';
 $string['grademin'] = 'Minimum grade';
-$string['gradeoutof10'] = 'Grade (0–10)';
+$string['gradeoutof10'] = 'Grade (0-10)';
 $string['percentage'] = 'Percentage';
+$string['pluginname'] = 'Activities reports';
+$string['privacy:metadata'] = 'The Activities reports plugin does not store any personal data.';
 $string['rawgrade'] = 'Raw grade';
-$string['timemodified'] = 'Last modified';
 $string['reportbuilderlink'] = 'Open report builder';
 $string['reportbuilderlink_desc'] = 'Custom activity grade reports are created in the report builder.';
+$string['timemodified'] = 'Last modified';

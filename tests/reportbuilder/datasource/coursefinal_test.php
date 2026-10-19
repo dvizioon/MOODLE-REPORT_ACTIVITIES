@@ -30,15 +30,8 @@ use grade_item;
  * @covers    \report_activities\reportbuilder\datasource\coursefinal
  * @copyright 2026 Dvizioon
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @method void assertTrue(mixed $condition, string $message = '')
- * @method void assertFalse(mixed $condition, string $message = '')
- * @method void assertEquals(mixed $expected, mixed $actual, string $message = '')
- * @method void assertCount(int $expectedCount, mixed $haystack, string $message = '')
- * @method void assertStringContainsString(string $needle, string $haystack, string $message = '')
- * @method void assertNotFalse(mixed $condition, string $message = '')
  */
 final class coursefinal_test extends core_reportbuilder_testcase {
-
     /**
      * Datasource is discoverable by Report Builder when the user has the view capability.
      */

@@ -24,24 +24,23 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Relatórios de atividades';
-$string['privacy:metadata'] = 'O plugin Relatórios de atividades não armazena dados pessoais.';
-$string['activities:view'] = 'Ver fontes de relatório de atividades';
-
 $string['activities'] = 'Atividades';
-$string['coursefinal'] = 'Nota final';
+$string['activities:view'] = 'Ver fontes de relatório de atividades';
 $string['activity'] = 'Atividade';
 $string['activityname'] = 'Nome da atividade';
 $string['activitytype'] = 'Tipo de atividade';
+$string['coursefinal'] = 'Nota final';
 $string['entitygrade'] = 'Nota';
 $string['entitygradeitem'] = 'Atividade';
 $string['feedback'] = 'Feedback';
 $string['finalgrade'] = 'Nota final';
 $string['grademax'] = 'Nota máxima';
 $string['grademin'] = 'Nota mínima';
-$string['gradeoutof10'] = 'Nota (0–10)';
+$string['gradeoutof10'] = 'Nota (0-10)';
 $string['percentage'] = 'Porcentagem';
+$string['pluginname'] = 'Relatórios de atividades';
+$string['privacy:metadata'] = 'O plugin Relatórios de atividades não armazena dados pessoais.';
 $string['rawgrade'] = 'Nota bruta';
-$string['timemodified'] = 'Última modificação';
 $string['reportbuilderlink'] = 'Abrir construtor de relatórios';
 $string['reportbuilderlink_desc'] = 'Os relatórios de notas por atividade são criados no construtor de relatórios.';
+$string['timemodified'] = 'Última modificação';

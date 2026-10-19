@@ -33,7 +33,6 @@ use stdClass;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class grade_item extends base {
-
     /**
      * Database tables that this entity uses.
      *
@@ -73,7 +72,7 @@ class grade_item extends base {
             ->add_field("{$gradeitem}.itemname")
             ->add_field("{$gradeitem}.courseid", 'courseid')
             ->set_is_sortable(true)
-            ->add_callback(static function(?string $name, stdClass $row): string {
+            ->add_callback(static function (?string $name, stdClass $row): string {
                 if ($name === null || $name === '') {
                     return '';
                 }
@@ -95,7 +94,7 @@ class grade_item extends base {
             ->set_type(column::TYPE_TEXT)
             ->add_field("{$gradeitem}.itemmodule")
             ->set_is_sortable(true)
-            ->add_callback(static function(?string $module): string {
+            ->add_callback(static function (?string $module): string {
                 if ($module === null || $module === '') {
                     return '';
                 }
@@ -117,7 +116,7 @@ class grade_item extends base {
             ->set_type(column::TYPE_FLOAT)
             ->add_field("{$gradeitem}.grademax")
             ->set_is_sortable(true)
-            ->add_callback(static function(?float $value): string {
+            ->add_callback(static function (?float $value): string {
                 return $value === null ? '' : format_float($value, 2);
             });
 
@@ -131,7 +130,7 @@ class grade_item extends base {
             ->set_type(column::TYPE_FLOAT)
             ->add_field("{$gradeitem}.grademin")
             ->set_is_sortable(true)
-            ->add_callback(static function(?float $value): string {
+            ->add_callback(static function (?float $value): string {
                 return $value === null ? '' : format_float($value, 2);
             });
 

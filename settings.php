@@ -24,7 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-/** @var admin_root $ADMIN */
 global $ADMIN;
 
 $ADMIN->add('reports', new admin_externalpage(

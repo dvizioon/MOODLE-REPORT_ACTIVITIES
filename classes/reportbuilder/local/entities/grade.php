@@ -34,7 +34,6 @@ use stdClass;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class grade extends base {
-
     /**
      * Database tables that this entity uses.
      *
@@ -77,7 +76,7 @@ class grade extends base {
             ->set_type(column::TYPE_FLOAT)
             ->add_field("{$grade}.finalgrade")
             ->set_is_sortable(true)
-            ->add_callback(static function(?float $value): string {
+            ->add_callback(static function (?float $value): string {
                 return $value === null ? '' : format_float($value, 2);
             });
 
@@ -91,7 +90,7 @@ class grade extends base {
             ->set_type(column::TYPE_FLOAT)
             ->add_field("{$grade}.rawgrade")
             ->set_is_sortable(true)
-            ->add_callback(static function(?float $value): string {
+            ->add_callback(static function (?float $value): string {
                 return $value === null ? '' : format_float($value, 2);
             });
 
@@ -111,7 +110,7 @@ class grade extends base {
             ->set_type(column::TYPE_FLOAT)
             ->add_field($percentagesql, 'percentage')
             ->set_is_sortable(true)
-            ->add_callback(static function(?float $value): string {
+            ->add_callback(static function (?float $value): string {
                 return $value === null ? '' : format_float($value, 0) . '%';
             });
 
@@ -131,7 +130,7 @@ class grade extends base {
             ->set_type(column::TYPE_INTEGER)
             ->add_field($outof10sql, 'gradeoutof10')
             ->set_is_sortable(true)
-            ->add_callback(static function($value): string {
+            ->add_callback(static function ($value): string {
                 return $value === null || $value === '' ? '' : (string) (int) $value;
             });
 
@@ -147,7 +146,7 @@ class grade extends base {
             ->add_field("{$grade}.feedbackformat")
             ->add_field("{$gradeitem}.courseid", 'courseid')
             ->set_is_sortable(false)
-            ->add_callback(static function(?string $value, stdClass $row): string {
+            ->add_callback(static function (?string $value, stdClass $row): string {
                 if ($value === null || $value === '') {
                     return '';
                 }

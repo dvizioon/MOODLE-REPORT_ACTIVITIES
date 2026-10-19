@@ -32,7 +32,6 @@ use stdClass;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class course_total extends base {
-
     /**
      * Database tables that this entity uses.
      *
@@ -77,7 +76,7 @@ class course_total extends base {
             ->add_field("{$grade}.userid", 'userid')
             ->add_field("{$gradeitem}.courseid", 'courseid')
             ->set_is_sortable(true)
-            ->add_callback(static function($value, stdClass $row): string {
+            ->add_callback(static function ($value, stdClass $row): string {
                 global $CFG;
                 require_once("{$CFG->dirroot}/grade/querylib.php");
 

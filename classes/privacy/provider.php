@@ -16,8 +16,6 @@
 
 namespace report_activities\privacy;
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Privacy provider (null provider — no personal data stored).
  *
@@ -26,7 +24,6 @@ defined('MOODLE_INTERNAL') || die();
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class provider implements \core_privacy\local\metadata\null_provider {
-
     /**
      * Explain why no personal data is stored.
      *

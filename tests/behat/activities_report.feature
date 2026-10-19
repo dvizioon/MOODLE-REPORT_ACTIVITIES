@@ -27,9 +27,10 @@ Feature: Activities report source in Report builder
       | Include default setup | 1                 |
     And I click on "Save" "button" in the "New report" "dialogue"
     Then I should see "Activities grades"
-    And I should see "Full name" in the "[data-region='report-table']" "css_element"
-    And I should see "Activity name" in the "[data-region='report-table']" "css_element"
-    And I should see "Final grade" in the "[data-region='report-table']" "css_element"
+    # Confirm default columns appear in the editor table (source name is the table caption).
+    And I should see "Full name with link" in the "Activities" "table"
+    And I should see "Activity name" in the "Activities" "table"
+    And I should see "Final grade" in the "Activities" "table"
     And I click on "Close 'Activities grades' editor" "button"
     And the following should exist in the "Reports list" table:
       | Name              | Report source |

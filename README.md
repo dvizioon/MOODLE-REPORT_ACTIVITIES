@@ -16,8 +16,8 @@
   <img src="https://img.shields.io/badge/PLUGIN-report__activities-1B53A4?style=for-the-badge" />
   <img src="https://img.shields.io/badge/TYPE-Reports-59666C?style=for-the-badge" />
   <br />
-  <img src="https://img.shields.io/badge/VERSION-1.3.6-success?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/BUILD-2026101601-informational?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/VERSION-1.3.7-success?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/BUILD-2026101900-informational?style=for-the-badge" />
   <img src="https://img.shields.io/badge/MATURITY-Stable-2ea44f?style=for-the-badge" />
   <img src="https://img.shields.io/badge/LICENSE-GPL--3.0-blue?style=for-the-badge" />
 </p>
@@ -101,29 +101,69 @@ All activities that have a **grade item** in the gradebook (`itemtype = mod`):
 
 ## Screenshots
 
-<p align="center">
-  <img src="screenshots/entrarRelatorio.png" alt="Open Report Builder" width="90%" />
-  <br /><em>1 — Open Report Builder</em>
-</p>
+Screenshots from version **1.3.6** (`screenshots/1.3.6/`).
+
+### Create a report from the Activities source
+
+Goal: open Report Builder and start a custom report using **Activities** (grades per activity).
 
 <p align="center">
-  <img src="screenshots/escolherAtividade.png" alt="Choose the Activities source" width="90%" />
-  <br /><em>2 — Choose the <strong>Activities</strong> source</em>
+  <img src="screenshots/1.3.6/create-grades-by-activity.png" alt="Create report from Activities source" width="90%" />
+  <br /><em>New report dialogue with source Activities</em>
 </p>
 
-<p align="center">
-  <img src="screenshots/contextosRelatorio.png" alt="Report contexts and columns" width="90%" />
-  <br /><em>3 — Contexts: user, course, activity and grade</em>
-</p>
+### Create a report from the Final grade source
+
+Goal: start a custom report using **Final grade** (course gradebook total).
 
 <p align="center">
-  <img src="screenshots/visaoRelatorio.png" alt="Report editor view" width="90%" />
-  <br /><em>4 — Editor: build columns, filters and aggregations</em>
+  <img src="screenshots/1.3.6/create-final-grade.png" alt="Create report from Final grade source" width="90%" />
+  <br /><em>New report dialogue with source Final grade</em>
 </p>
 
+### Grades by activity
+
+Goal: view student grades for each graded activity (user, course, activity, percentage, final grade).
+
 <p align="center">
-  <img src="screenshots/vizualizarRelatorio.png" alt="View the report" width="90%" />
-  <br /><em>5 — View / export the report</em>
+  <img src="screenshots/1.3.6/grades-by-activity.png" alt="Grades by activity report" width="90%" />
+  <br /><em>Report built from the Activities source</em>
+</p>
+
+### Course final grades
+
+Goal: view the course total already calculated in the gradebook (weights and aggregation applied).
+
+<p align="center">
+  <img src="screenshots/1.3.6/grades-by-gradebook.png" alt="Course final grades report" width="90%" />
+  <br /><em>Report built from the Final grade source</em>
+</p>
+
+### Conditions
+
+Goal: limit who appears in the report (for example by course or user).
+
+<p align="center">
+  <img src="screenshots/1.3.6/create-conditions.png" alt="Report conditions" width="90%" />
+  <br /><em>Conditions panel in the report editor</em>
+</p>
+
+### Access
+
+Goal: control who can view the custom report.
+
+<p align="center">
+  <img src="screenshots/1.3.6/access-report.png" alt="Report access settings" width="90%" />
+  <br /><em>Access tab for the custom report</em>
+</p>
+
+### Card / grid view
+
+Goal: present the same data in a card layout when preferred.
+
+<p align="center">
+  <img src="screenshots/1.3.6/grid-view.png" alt="Card view of the report" width="90%" />
+  <br /><em>Card view of report results</em>
 </p>
 
 ---
@@ -170,7 +210,7 @@ All activities that have a **grade item** in the gradebook (`itemtype = mod`):
 ```bash
 activities/
 │
-├── version.php                 # report_activities · 1.3.6
+├── version.php                 # report_activities · 1.3.7
 ├── settings.php                # Admin link → Report builder
 ├── index.php                   # Redirect → /reportbuilder/
 ├── LICENSE
@@ -248,7 +288,7 @@ php public/admin/cli/upgrade.php
 
 ## Roadmap
 
-### Done (v1.3.6)
+### Done (v1.3.7)
 
 - [x] **Activities** source in Report Builder (Moodle 5.2)
 - [x] **Final grade** source (course gradebook total)
