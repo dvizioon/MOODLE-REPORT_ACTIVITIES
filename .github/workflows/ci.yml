@@ -1,5 +1,5 @@
 # Gate Marketplace (AUTO TEST): Moodle 5.2 × PHP × DB — alinhado ao version.php.
-# Probe 3.x / 4.x / 5.x: ver workflow ci-compat.yml (não altera requires no git).
+# Probe 4.x / 5.x: ver workflow ci-compat.yml (não altera requires no git).
 
 name: Moodle Plugin CI
 

@@ -1,9 +1,10 @@
-# Compatibilidade cruzada Moodle 3 / 4 / 5.
-# Objetivo: ver em quais branches o plugin instala e passa PHPUnit,
-# para decidir $plugin->requires / $plugin->supported no Marketplace.
+# Compatibilidade cruzada Moodle 4 / 5 (Report Builder core = 4.0+).
+# Moodle 3.x não tem core_reportbuilder — fora da matrix de propósito.
+# Objetivo: ver em quais branches o plugin passa PHPUnit para decidir
+# $plugin->requires / $plugin->supported no Marketplace.
 #
 # Em branches != 5.2 o job baixa temporariamente o requires (não altera o repo).
-# allow_fail=true nas sondagens: vermelho/laranja = incompatível; 5.2 continua bloqueante.
+# allow_fail=true nas sondagens; 5.2 continua bloqueante.
 
 name: CI Moodle compat
 
@@ -32,16 +33,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # ---- Moodle 3 ----
-          - php: "7.4"
-            moodle-branch: MOODLE_39_STABLE
-            postgres: postgres:13
-            allow_fail: true
-          - php: "7.4"
-            moodle-branch: MOODLE_311_STABLE
-            postgres: postgres:13
-            allow_fail: true
-
           # ---- Moodle 4 ----
           - php: "8.0"
             moodle-branch: MOODLE_400_STABLE
@@ -99,9 +90,9 @@ jobs:
       - name: Relax version.php for probe (non-5.2)
         if: matrix.moodle-branch != 'MOODLE_502_STABLE'
         run: |
-          # Moodle 3.9.0 timestamp — só para o CI conseguir instalar e medir falha real
-          sed -i 's/\$plugin->requires[[:space:]]*=.*/$plugin->requires = 2019111800;/' plugin/version.php
-          sed -i 's/\$plugin->supported[[:space:]]*=.*/$plugin->supported = [39, 502];/' plugin/version.php
+          # Moodle 4.0.0 — mínimo teórico com Report Builder core
+          sed -i 's/\$plugin->requires[[:space:]]*=.*/$plugin->requires = 2022041900;/' plugin/version.php
+          sed -i 's/\$plugin->supported[[:space:]]*=.*/$plugin->supported = [400, 502];/' plugin/version.php
           echo "Probe requires/supported:"
           grep -E 'requires|supported' plugin/version.php
 
