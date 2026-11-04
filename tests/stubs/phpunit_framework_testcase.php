@@ -18,6 +18,7 @@
 /**
  * IDE-only stub for PHPUnit\Framework\TestCase when vendor/phpunit is absent.
  *
+ * PHP 7.4-compatible signatures so moodle-plugin-ci phplint passes on old branches.
  * Not loaded at runtime (Composer/Moodle autoload never includes this path).
  *
  * @package   report_activities
@@ -28,39 +29,89 @@
 namespace PHPUnit\Framework;
 
 abstract class TestCase {
-    public function assertTrue(mixed $condition, string $message = ''): void {
+    /**
+     * @param mixed $condition
+     * @param string $message
+     */
+    public function assertTrue($condition, string $message = ''): void {
     }
 
-    public function assertFalse(mixed $condition, string $message = ''): void {
+    /**
+     * @param mixed $condition
+     * @param string $message
+     */
+    public function assertFalse($condition, string $message = ''): void {
     }
 
-    public function assertEquals(mixed $expected, mixed $actual, string $message = ''): void {
+    /**
+     * @param mixed $expected
+     * @param mixed $actual
+     * @param string $message
+     */
+    public function assertEquals($expected, $actual, string $message = ''): void {
     }
 
-    public function assertSame(mixed $expected, mixed $actual, string $message = ''): void {
+    /**
+     * @param mixed $expected
+     * @param mixed $actual
+     * @param string $message
+     */
+    public function assertSame($expected, $actual, string $message = ''): void {
     }
 
-    public function assertNotSame(mixed $expected, mixed $actual, string $message = ''): void {
+    /**
+     * @param mixed $expected
+     * @param mixed $actual
+     * @param string $message
+     */
+    public function assertNotSame($expected, $actual, string $message = ''): void {
     }
 
-    public function assertNotFalse(mixed $condition, string $message = ''): void {
+    /**
+     * @param mixed $condition
+     * @param string $message
+     */
+    public function assertNotFalse($condition, string $message = ''): void {
     }
 
-    public function assertNotNull(mixed $actual, string $message = ''): void {
+    /**
+     * @param mixed $actual
+     * @param string $message
+     */
+    public function assertNotNull($actual, string $message = ''): void {
     }
 
-    public function assertNull(mixed $actual, string $message = ''): void {
+    /**
+     * @param mixed $actual
+     * @param string $message
+     */
+    public function assertNull($actual, string $message = ''): void {
     }
 
-    public function assertCount(int $expectedcount, mixed $haystack, string $message = ''): void {
+    /**
+     * @param int $expectedcount
+     * @param mixed $haystack
+     * @param string $message
+     */
+    public function assertCount(int $expectedcount, $haystack, string $message = ''): void {
     }
 
-    public function assertInstanceOf(string|object $expected, mixed $actual, string $message = ''): void {
+    /**
+     * @param string|object $expected
+     * @param mixed $actual
+     * @param string $message
+     */
+    public function assertInstanceOf($expected, $actual, string $message = ''): void {
     }
 
     public function assertStringContainsString(string $needle, string $haystack, string $message = ''): void {
     }
 
-    public function assertArrayHasKey(int|string $key, mixed $array, string $message = ''): void {
+    /**
+     * @param int|string $key
+     * @param mixed $array
+     * @param string $message
+     */
+    public function assertArrayHasKey($key, $array, string $message = ''): void {
     }
 }

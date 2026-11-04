@@ -134,9 +134,30 @@ jobs:
         if: ${{ !cancelled() }}
         run: moodle-plugin-ci validate
 
-      - name: PHPUnit
+      - name: PHPUnit (skip when Report Builder test API missing)
         if: ${{ !cancelled() }}
-        run: moodle-plugin-ci phpunit --fail-on-warning
+        run: |
+          set -e
+          # Paths vary: Moodle 4.x reportbuilder/… ; Moodle 5.2+ public/reportbuilder/…
+          RB_TESTCASE=""
+          for candidate in \
+            moodle/reportbuilder/tests/classes/core_reportbuilder_testcase.php \
+            moodle/public/reportbuilder/tests/classes/core_reportbuilder_testcase.php \
+            moodle/reportbuilder/tests/core_reportbuilder_testcase.php
+          do
+            if [[ -f "$candidate" ]]; then
+              RB_TESTCASE="$candidate"
+              break
+            fi
+          done
+
+          if [[ -z "$RB_TESTCASE" ]]; then
+            echo "::error title=INCOMPATIBLE::${{ matrix.moodle-branch }} has no core_reportbuilder_testcase (Report Builder tests API). Do not set \$plugin->supported for this branch."
+            exit 1
+          fi
+
+          echo "Found Report Builder testcase: $RB_TESTCASE"
+          moodle-plugin-ci phpunit --fail-on-warning
 
       - name: Mark cancelled as failed
         if: ${{ cancelled() }}
