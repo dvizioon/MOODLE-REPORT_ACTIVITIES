@@ -1,0 +1,133 @@
+# Security + validate — supports Moodle Marketplace review / AUTO TEST path.
+# Declared support: Moodle 5.2 only ($plugin->supported / requires in version.php).
+
+name: CI Security
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  static-scan:
+    name: Static security patterns
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Run security-scan.sh
+        run: |
+          chmod +x scripts/security-scan.sh
+          ./scripts/security-scan.sh .
+
+      - name: Block sensitive packaged files
+        run: |
+          set -e
+          BAD=0
+          if find . -path '*/doc/*' -name '*.php' | grep -q .; then
+            echo "::error::PHP inside doc/ — do not ship in the plugin package"
+            BAD=1
+          fi
+          if find . -name '*.zip' | grep -q .; then
+            echo "::error::ZIP versioned inside the plugin"
+            BAD=1
+          fi
+          exit $BAD
+
+      - name: Privacy provider when DB install exists
+        run: |
+          if [[ -f db/install.xml ]] || [[ -f db/install.php ]]; then
+            if [[ ! -f classes/privacy/provider.php ]]; then
+              echo "::error::Plugin with DB needs classes/privacy/provider.php"
+              exit 1
+            fi
+          fi
+          test -f classes/privacy/provider.php
+          echo "OK privacy provider present"
+
+  moodle-checks:
+    name: moodle-plugin-ci (${{ matrix.moodle-branch }} / PHP ${{ matrix.php }})
+    runs-on: ubuntu-24.04
+    needs: static-scan
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: "8.3"
+            moodle-branch: MOODLE_502_STABLE
+          - php: "8.4"
+            moodle-branch: MOODLE_502_STABLE
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          path: plugin
+          persist-credentials: false
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pgsql, mysqli, zip, gd, intl, xml, mbstring, soap
+          ini-values: max_input_vars=5000, opcache.enable_cli=1, opcache.jit=disable
+          coverage: none
+
+      - name: Initialise moodle-plugin-ci
+        run: |
+          composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^4
+          echo $(cd ci/bin; pwd) >> $GITHUB_PATH
+          echo $(cd ci/vendor/bin; pwd) >> $GITHUB_PATH
+          sudo locale-gen en_AU.UTF-8
+          echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
+
+      - name: Install Moodle + plugin
+        run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
+        env:
+          DB: pgsql
+          MOODLE_BRANCH: ${{ matrix.moodle-branch }}
+
+      - name: PHP Lint
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci phplint
+
+      - name: Moodle Code Checker
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci phpcs --max-warnings 0
+
+      - name: PHPDoc
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci phpdoc --max-warnings 0
+
+      - name: Validate plugin
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci validate
+
+      - name: Upgrade savepoints
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci savepoints
+
+      - name: Mustache
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci mustache
+
+      - name: PHPMD
+        continue-on-error: true
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci phpmd
+
+      - name: Mark cancelled jobs as failed
+        if: ${{ cancelled() }}
+        run: exit 1

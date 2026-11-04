@@ -176,6 +176,6 @@ final class activities_test extends core_reportbuilder_testcase {
         $this->assertNotSame('', $row[3]);
         $this->assertEquals(format_float(8.5, 2), $row[3]);
         $this->assertEquals('85%', $row[4]);
-        $this->assertEquals('9', $row[5]); // 8.5 on 0–10 scale → 9 (half-up).
+        $this->assertEquals('9', $row[5]); // 8.5 on 0–10 scale becomes 9 (half-up).
     }
 }

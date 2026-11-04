@@ -16,8 +16,8 @@
   <img src="https://img.shields.io/badge/PLUGIN-report__activities-1B53A4?style=for-the-badge" />
   <img src="https://img.shields.io/badge/TYPE-Reports-59666C?style=for-the-badge" />
   <br />
-  <img src="https://img.shields.io/badge/VERSION-1.3.7-success?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/BUILD-2026101900-informational?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/VERSION-1.3.8-success?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/BUILD-2026110400-informational?style=for-the-badge" />
   <img src="https://img.shields.io/badge/MATURITY-Stable-2ea44f?style=for-the-badge" />
   <img src="https://img.shields.io/badge/LICENSE-GPL--3.0-blue?style=for-the-badge" />
 </p>
@@ -102,14 +102,14 @@ Todas que têm **item de nota** no caderno (`itemtype = mod`):
 
 ## Screenshots
 
-Imagens da versão **1.3.6** (`screenshots/1.3.6/`).
+Imagens da versão **1.3.7** (`screenshots/1.3.7/`).
 
 ### Criar relatório pela fonte Atividades
 
 Objetivo: abrir o Construtor de Relatórios e criar um relatório com a fonte **Atividades** (notas por atividade).
 
 <p align="center">
-  <img src="screenshots/1.3.6/create-grades-by-activity.png" alt="Criar relatório pela fonte Atividades" width="90%" />
+  <img src="screenshots/1.3.7/create-grades-by-activity.png" alt="Criar relatório pela fonte Atividades" width="90%" />
   <br /><em>Diálogo Novo relatório com a fonte Atividades</em>
 </p>
 
@@ -118,7 +118,7 @@ Objetivo: abrir o Construtor de Relatórios e criar um relatório com a fonte **
 Objetivo: criar um relatório com a fonte **Nota final** (total do caderno do curso).
 
 <p align="center">
-  <img src="screenshots/1.3.6/create-final-grade.png" alt="Criar relatório pela fonte Nota final" width="90%" />
+  <img src="screenshots/1.3.7/create-final-grade.png" alt="Criar relatório pela fonte Nota final" width="90%" />
   <br /><em>Diálogo Novo relatório com a fonte Nota final</em>
 </p>
 
@@ -127,7 +127,7 @@ Objetivo: criar um relatório com a fonte **Nota final** (total do caderno do cu
 Objetivo: ver as notas do aluno em cada atividade avaliada (usuário, curso, atividade, porcentagem, nota final).
 
 <p align="center">
-  <img src="screenshots/1.3.6/grades-by-activity.png" alt="Relatório de notas por atividade" width="90%" />
+  <img src="screenshots/1.3.7/grades-by-activity.png" alt="Relatório de notas por atividade" width="90%" />
   <br /><em>Relatório montado com a fonte Atividades</em>
 </p>
 
@@ -136,7 +136,7 @@ Objetivo: ver as notas do aluno em cada atividade avaliada (usuário, curso, ati
 Objetivo: ver o total do curso já calculado no caderno de notas (pesos e agregação aplicados).
 
 <p align="center">
-  <img src="screenshots/1.3.6/grades-by-gradebook.png" alt="Relatório de nota final do curso" width="90%" />
+  <img src="screenshots/1.3.7/grades-by-gradebook.png" alt="Relatório de nota final do curso" width="90%" />
   <br /><em>Relatório montado com a fonte Nota final</em>
 </p>
 
@@ -145,7 +145,7 @@ Objetivo: ver o total do curso já calculado no caderno de notas (pesos e agrega
 Objetivo: limitar quem aparece no relatório (por exemplo por curso ou usuário).
 
 <p align="center">
-  <img src="screenshots/1.3.6/create-conditions.png" alt="Condições do relatório" width="90%" />
+  <img src="screenshots/1.3.7/create-conditions.png" alt="Condições do relatório" width="90%" />
   <br /><em>Painel de condições no editor</em>
 </p>
 
@@ -154,7 +154,7 @@ Objetivo: limitar quem aparece no relatório (por exemplo por curso ou usuário)
 Objetivo: controlar quem pode ver o relatório personalizado.
 
 <p align="center">
-  <img src="screenshots/1.3.6/access-report.png" alt="Acesso ao relatório" width="90%" />
+  <img src="screenshots/1.3.7/access-report.png" alt="Acesso ao relatório" width="90%" />
   <br /><em>Aba Acesso do relatório</em>
 </p>
 
@@ -163,7 +163,7 @@ Objetivo: controlar quem pode ver o relatório personalizado.
 Objetivo: apresentar os mesmos dados em layout de cards.
 
 <p align="center">
-  <img src="screenshots/1.3.6/grid-view.png" alt="Visualização em cards" width="90%" />
+  <img src="screenshots/1.3.7/grid-view.png" alt="Visualização em cards" width="90%" />
   <br /><em>Resultados do relatório em cards</em>
 </p>
 
@@ -182,7 +182,7 @@ Objetivo: apresentar os mesmos dados em layout de cards.
 - **Uma linha = aluno × atividade com nota** no caderno.
 - Fonte separada **Nota final** para o total do curso.
 - **Nota bruta** (módulo) + **nota final** (caderno).
-- **Porcentagem** e **nota 0-10** (half-up: `7.3→7`, `7.5→8`).
+- **Porcentagem** e **nota 0-10** (half-up: `7.3` becomes `7`, `7.5` becomes `8`).
 - **Filtros / condições / audiência / cronogramas** do próprio Moodle.
 - **Multi-idioma:** EN + pt_BR.
 - **Privacy null provider** - não armazena dados extras.
@@ -192,7 +192,7 @@ Objetivo: apresentar os mesmos dados em layout de cards.
 
 | Campo | Origem | Uso típico |
 |-------|--------|------------|
-| **Nota bruta** | Atividade → caderno (`rawgrade`) | “O que o módulo tirou” |
+| **Nota bruta** | Atividade para caderno (`rawgrade`) | “O que o módulo tirou” |
 | **Nota final** | Caderno de notas (`finalgrade`) | “O que vale no livro de notas daquela atividade” |
 | **Nota máxima / mínima** | Item de nota (`grademax` / `grademin`) | Escala do item |
 | **Porcentagem** | `((final - min) / (max - min)) × 100` | Ex.: `73%` |
@@ -211,9 +211,9 @@ Objetivo: apresentar os mesmos dados em layout de cards.
 ```bash
 activities/
 │
-├── version.php                 # report_activities · 1.3.7
-├── settings.php                # Link admin → Report builder
-├── index.php                   # Redirect → /reportbuilder/
+├── version.php                 # report_activities · 1.3.8
+├── settings.php                # Sem entrada em Administração / Relatórios
+├── index.php                   # Redirect opcional para /reportbuilder/
 ├── LICENSE
 ├── README.md
 ├── README.pt_br.md
@@ -260,7 +260,7 @@ cd /caminho/do/moodle/public/report
 git clone https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES.git activities
 ```
 
-Depois: **Administração do site → Notificações** (ou, na raiz do Moodle):
+Depois: **Administração do site / Notificações** (ou, na raiz do Moodle):
 
 ```bash
 php public/admin/cli/upgrade.php
@@ -275,7 +275,7 @@ php public/admin/cli/upgrade.php
 ### Uso rápido
 
 1. Abra `/reportbuilder/index.php`
-2. **Novo relatório** → fonte **Atividades** ou **Nota final**
+2. **Novo relatório**, fonte **Atividades** ou **Nota final**
 3. Monte colunas (usuário, curso, atividade, nota bruta, **nota final**…), filtros e agendamentos
 
 | Recurso | Caminho |
@@ -288,6 +288,11 @@ php public/admin/cli/upgrade.php
 ---
 
 ## Roadmap
+
+### Feito (v1.3.8)
+
+- [x] Removido **Activities reports** de Administração do site / Relatórios (só Report Builder)
+- [x] GitHub Actions: CI 5.2 (PHP/DB) + `ci-security.yml` + `ci-compat.yml` (sonda Moodle 3/4/5)
 
 ### Feito (v1.3.7)
 
@@ -306,8 +311,8 @@ php public/admin/cli/upgrade.php
 
 - [ ] Coluna opcional de **peso do item** / categoria (ainda por atividade)
 - [ ] Filtro rápido “só questionários” / “só tarefas” no setup padrão
-- [ ] Suporte declarado a mais versões Moodle após validação
-- [ ] Documentação em vídeo (criar relatório do zero → exportar CSV)
+- [ ] Suporte declarado a mais versões Moodle após validação (CI já preparado)
+- [ ] Documentação em vídeo (criar relatório do zero até exportar CSV)
 
 Sugestões e bugs: [Issues](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES/issues).
 

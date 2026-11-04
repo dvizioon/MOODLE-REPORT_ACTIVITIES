@@ -16,8 +16,8 @@
   <img src="https://img.shields.io/badge/PLUGIN-report__activities-1B53A4?style=for-the-badge" />
   <img src="https://img.shields.io/badge/TYPE-Reports-59666C?style=for-the-badge" />
   <br />
-  <img src="https://img.shields.io/badge/VERSION-1.3.7-success?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/BUILD-2026101900-informational?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/VERSION-1.3.8-success?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/BUILD-2026110400-informational?style=for-the-badge" />
   <img src="https://img.shields.io/badge/MATURITY-Stable-2ea44f?style=for-the-badge" />
   <img src="https://img.shields.io/badge/LICENSE-GPL--3.0-blue?style=for-the-badge" />
 </p>
@@ -102,14 +102,14 @@ All activities that have a **grade item** in the gradebook (`itemtype = mod`):
 
 ## Screenshots
 
-Screenshots from version **1.3.6** (`screenshots/1.3.6/`).
+Screenshots from version **1.3.7** (`screenshots/1.3.7/`).
 
 ### Create a report from the Activities source
 
 Goal: open Report Builder and start a custom report using **Activities** (grades per activity).
 
 <p align="center">
-  <img src="screenshots/1.3.6/create-grades-by-activity.png" alt="Create report from Activities source" width="90%" />
+  <img src="screenshots/1.3.7/create-grades-by-activity.png" alt="Create report from Activities source" width="90%" />
   <br /><em>New report dialogue with source Activities</em>
 </p>
 
@@ -118,7 +118,7 @@ Goal: open Report Builder and start a custom report using **Activities** (grades
 Goal: start a custom report using **Final grade** (course gradebook total).
 
 <p align="center">
-  <img src="screenshots/1.3.6/create-final-grade.png" alt="Create report from Final grade source" width="90%" />
+  <img src="screenshots/1.3.7/create-final-grade.png" alt="Create report from Final grade source" width="90%" />
   <br /><em>New report dialogue with source Final grade</em>
 </p>
 
@@ -127,7 +127,7 @@ Goal: start a custom report using **Final grade** (course gradebook total).
 Goal: view student grades for each graded activity (user, course, activity, percentage, final grade).
 
 <p align="center">
-  <img src="screenshots/1.3.6/grades-by-activity.png" alt="Grades by activity report" width="90%" />
+  <img src="screenshots/1.3.7/grades-by-activity.png" alt="Grades by activity report" width="90%" />
   <br /><em>Report built from the Activities source</em>
 </p>
 
@@ -136,7 +136,7 @@ Goal: view student grades for each graded activity (user, course, activity, perc
 Goal: view the course total already calculated in the gradebook (weights and aggregation applied).
 
 <p align="center">
-  <img src="screenshots/1.3.6/grades-by-gradebook.png" alt="Course final grades report" width="90%" />
+  <img src="screenshots/1.3.7/grades-by-gradebook.png" alt="Course final grades report" width="90%" />
   <br /><em>Report built from the Final grade source</em>
 </p>
 
@@ -145,7 +145,7 @@ Goal: view the course total already calculated in the gradebook (weights and agg
 Goal: limit who appears in the report (for example by course or user).
 
 <p align="center">
-  <img src="screenshots/1.3.6/create-conditions.png" alt="Report conditions" width="90%" />
+  <img src="screenshots/1.3.7/create-conditions.png" alt="Report conditions" width="90%" />
   <br /><em>Conditions panel in the report editor</em>
 </p>
 
@@ -154,7 +154,7 @@ Goal: limit who appears in the report (for example by course or user).
 Goal: control who can view the custom report.
 
 <p align="center">
-  <img src="screenshots/1.3.6/access-report.png" alt="Report access settings" width="90%" />
+  <img src="screenshots/1.3.7/access-report.png" alt="Report access settings" width="90%" />
   <br /><em>Access tab for the custom report</em>
 </p>
 
@@ -163,7 +163,7 @@ Goal: control who can view the custom report.
 Goal: present the same data in a card layout when preferred.
 
 <p align="center">
-  <img src="screenshots/1.3.6/grid-view.png" alt="Card view of the report" width="90%" />
+  <img src="screenshots/1.3.7/grid-view.png" alt="Card view of the report" width="90%" />
   <br /><em>Card view of report results</em>
 </p>
 
@@ -182,7 +182,7 @@ Goal: present the same data in a card layout when preferred.
 - **One row = student × graded activity** in the gradebook.
 - Separate **Final grade** source for the course total.
 - **Raw grade** (module) + **final grade** (gradebook).
-- **Percentage** and **grade 0-10** (half-up: `7.3→7`, `7.5→8`).
+- **Percentage** and **grade 0-10** (half-up: `7.3` becomes `7`, `7.5` becomes `8`).
 - Moodle **filters / conditions / audience / schedules**.
 - **Multi-language:** EN + pt_BR.
 - **Privacy null provider** - stores no extra data.
@@ -192,7 +192,7 @@ Goal: present the same data in a card layout when preferred.
 
 | Field | Source | Typical use |
 |-------|--------|-------------|
-| **Raw grade** | Activity → gradebook (`rawgrade`) | “What the module scored” |
+| **Raw grade** | Activity to gradebook (`rawgrade`) | “What the module scored” |
 | **Final grade** | Gradebook (`finalgrade`) | “What counts in the gradebook for that activity” |
 | **Grade max / min** | Grade item (`grademax` / `grademin`) | Item scale |
 | **Percentage** | `((final - min) / (max - min)) × 100` | e.g. `73%` |
@@ -211,9 +211,9 @@ Goal: present the same data in a card layout when preferred.
 ```bash
 activities/
 │
-├── version.php                 # report_activities · 1.3.7
-├── settings.php                # Admin link → Report builder
-├── index.php                   # Redirect → /reportbuilder/
+├── version.php                 # report_activities · 1.3.8
+├── settings.php                # No Site admin Reports entry
+├── index.php                   # Optional redirect to /reportbuilder/
 ├── LICENSE
 ├── README.md
 ├── README.pt_br.md
@@ -260,7 +260,7 @@ cd /path/to/moodle/public/report
 git clone https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES.git activities
 ```
 
-Then: **Site administration → Notifications** (or from the Moodle root):
+Then: **Site administration / Notifications** (or from the Moodle root):
 
 ```bash
 php public/admin/cli/upgrade.php
@@ -275,7 +275,7 @@ php public/admin/cli/upgrade.php
 ### Quick start
 
 1. Open `/reportbuilder/index.php`
-2. **New report** → source **Activities** or **Final grade**
+2. **New report**, source **Activities** or **Final grade**
 3. Add columns (user, course, activity, raw grade, **final grade**…), filters and schedules
 
 | Resource | Path |
@@ -288,6 +288,11 @@ php public/admin/cli/upgrade.php
 ---
 
 ## Roadmap
+
+### Done (v1.3.8)
+
+- [x] Removed **Activities reports** from Site administration / Reports (use Report Builder only)
+- [x] GitHub Actions: CI 5.2 (PHP/DB) + `ci-security.yml` + `ci-compat.yml` (probe Moodle 3/4/5)
 
 ### Done (v1.3.7)
 
@@ -306,8 +311,8 @@ php public/admin/cli/upgrade.php
 
 - [ ] Optional **item weight** / category column (still per activity)
 - [ ] Quick default filter “quizzes only” / “assignments only”
-- [ ] Declared support for more Moodle versions after validation
-- [ ] Video guide (create a report from scratch → export CSV)
+- [ ] Declared support for more Moodle versions after validation (CI already prepared)
+- [ ] Video guide (create a report from scratch to export CSV)
 
 Suggestions and bugs: [Issues](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES/issues).
 

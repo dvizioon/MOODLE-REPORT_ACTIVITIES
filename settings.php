@@ -15,7 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Admin settings — link to report builder.
+ * Admin settings — no Site administration / Reports link.
+ *
+ * The plugin only registers Report Builder data sources; access is via
+ * Reports / Report builder / Custom reports.
  *
  * @package   report_activities
  * @copyright 2026 Dvizioon
@@ -24,13 +27,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-global $ADMIN;
-
-$ADMIN->add('reports', new admin_externalpage(
-    'reportactivities',
-    get_string('pluginname', 'report_activities'),
-    new moodle_url('/report/activities/index.php'),
-    'report/activities:view'
-));
-
+// No admin_externalpage under 'reports' — a menu entry that only redirected
+// to /reportbuilder/index.php was redundant and confusing next to core reports.
 $settings = null;

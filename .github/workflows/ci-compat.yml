@@ -1,0 +1,143 @@
+# Compatibilidade cruzada Moodle 3 / 4 / 5.
+# Objetivo: ver em quais branches o plugin instala e passa PHPUnit,
+# para decidir $plugin->requires / $plugin->supported no Marketplace.
+#
+# Em branches != 5.2 o job baixa temporariamente o requires (não altera o repo).
+# allow_fail=true nas sondagens: vermelho/laranja = incompatível; 5.2 continua bloqueante.
+
+name: CI Moodle compat
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  compat:
+    name: ${{ matrix.moodle-branch }} / PHP ${{ matrix.php }}
+    runs-on: ubuntu-24.04
+    continue-on-error: ${{ matrix.allow_fail }}
+
+    services:
+      postgres:
+        image: ${{ matrix.postgres }}
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # ---- Moodle 3 ----
+          - php: "7.4"
+            moodle-branch: MOODLE_39_STABLE
+            postgres: postgres:13
+            allow_fail: true
+          - php: "7.4"
+            moodle-branch: MOODLE_311_STABLE
+            postgres: postgres:13
+            allow_fail: true
+
+          # ---- Moodle 4 ----
+          - php: "8.0"
+            moodle-branch: MOODLE_400_STABLE
+            postgres: postgres:14
+            allow_fail: true
+          - php: "8.0"
+            moodle-branch: MOODLE_401_STABLE
+            postgres: postgres:14
+            allow_fail: true
+          - php: "8.1"
+            moodle-branch: MOODLE_402_STABLE
+            postgres: postgres:14
+            allow_fail: true
+          - php: "8.1"
+            moodle-branch: MOODLE_403_STABLE
+            postgres: postgres:14
+            allow_fail: true
+          - php: "8.1"
+            moodle-branch: MOODLE_404_STABLE
+            postgres: postgres:15
+            allow_fail: true
+          - php: "8.1"
+            moodle-branch: MOODLE_405_STABLE
+            postgres: postgres:15
+            allow_fail: true
+          - php: "8.3"
+            moodle-branch: MOODLE_405_STABLE
+            postgres: postgres:15
+            allow_fail: true
+
+          # ---- Moodle 5 ----
+          - php: "8.2"
+            moodle-branch: MOODLE_500_STABLE
+            postgres: postgres:16
+            allow_fail: true
+          - php: "8.3"
+            moodle-branch: MOODLE_501_STABLE
+            postgres: postgres:16
+            allow_fail: true
+          - php: "8.3"
+            moodle-branch: MOODLE_502_STABLE
+            postgres: postgres:17
+            allow_fail: false
+          - php: "8.4"
+            moodle-branch: MOODLE_502_STABLE
+            postgres: postgres:17
+            allow_fail: false
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          path: plugin
+          persist-credentials: false
+
+      - name: Relax version.php for probe (non-5.2)
+        if: matrix.moodle-branch != 'MOODLE_502_STABLE'
+        run: |
+          # Moodle 3.9.0 timestamp — só para o CI conseguir instalar e medir falha real
+          sed -i 's/\$plugin->requires[[:space:]]*=.*/$plugin->requires = 2019111800;/' plugin/version.php
+          sed -i 's/\$plugin->supported[[:space:]]*=.*/$plugin->supported = [39, 502];/' plugin/version.php
+          echo "Probe requires/supported:"
+          grep -E 'requires|supported' plugin/version.php
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pgsql, mysqli, zip, gd, intl, xml, mbstring, soap
+          ini-values: max_input_vars=5000, opcache.enable_cli=1, opcache.jit=disable
+          coverage: none
+
+      - name: Initialise moodle-plugin-ci
+        run: |
+          composer create-project -n --no-dev --prefer-dist moodlehq/moodle-plugin-ci ci ^4
+          echo $(cd ci/bin; pwd) >> $GITHUB_PATH
+          echo $(cd ci/vendor/bin; pwd) >> $GITHUB_PATH
+          sudo locale-gen en_AU.UTF-8
+          echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
+
+      - name: Install Moodle + plugin
+        run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
+        env:
+          DB: pgsql
+          MOODLE_BRANCH: ${{ matrix.moodle-branch }}
+
+      - name: PHP Lint
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci phplint
+
+      - name: Validate
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci validate
+
+      - name: PHPUnit
+        if: ${{ !cancelled() }}
+        run: moodle-plugin-ci phpunit --fail-on-warning
+
+      - name: Mark cancelled as failed
+        if: ${{ cancelled() }}
+        run: exit 1
