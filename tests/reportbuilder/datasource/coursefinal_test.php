@@ -20,8 +20,8 @@ namespace report_activities\reportbuilder\datasource;
 
 use core_reportbuilder\manager;
 use core_reportbuilder_generator;
-use core_reportbuilder\tests\core_reportbuilder_testcase;
 use grade_item;
+use report_activities\tests\reportbuilder_testcase;
 
 /**
  * Unit tests for the course final grade datasource.
@@ -31,7 +31,7 @@ use grade_item;
  * @copyright 2026 Dvizioon
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-final class coursefinal_test extends core_reportbuilder_testcase {
+final class coursefinal_test extends reportbuilder_testcase {
     /**
      * Datasource is discoverable by Report Builder when the user has the view capability.
      */

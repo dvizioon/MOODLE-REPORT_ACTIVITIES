@@ -125,29 +125,19 @@ jobs:
         if: ${{ !cancelled() }}
         run: moodle-plugin-ci validate
 
-      - name: PHPUnit (skip when Report Builder test API missing)
+      - name: PHPUnit
         if: ${{ !cancelled() }}
         run: |
           set -e
-          # Paths vary: Moodle 4.x reportbuilder/… ; Moodle 5.2+ public/reportbuilder/…
-          RB_TESTCASE=""
-          for candidate in \
-            moodle/reportbuilder/tests/classes/core_reportbuilder_testcase.php \
-            moodle/public/reportbuilder/tests/classes/core_reportbuilder_testcase.php \
-            moodle/reportbuilder/tests/core_reportbuilder_testcase.php
-          do
-            if [[ -f "$candidate" ]]; then
-              RB_TESTCASE="$candidate"
-              break
-            fi
-          done
-
-          if [[ -z "$RB_TESTCASE" ]]; then
-            echo "::error title=INCOMPATIBLE::${{ matrix.moodle-branch }} has no core_reportbuilder_testcase (Report Builder tests API). Do not set \$plugin->supported for this branch."
+          # 4.0/4.2: class in helpers.php | 4.1+/4.3–5.0: tests/classes/ | 5.1+: public/…
+          RB_HELPER=$(find moodle -path '*/reportbuilder/tests/helpers.php' -print -quit 2>/dev/null || true)
+          RB_TESTCASE=$(find moodle -path '*/reportbuilder/tests/classes/core_reportbuilder_testcase.php' -print -quit 2>/dev/null || true)
+          if [[ -z "$RB_HELPER" && -z "$RB_TESTCASE" ]]; then
+            echo "::error title=INCOMPATIBLE::${{ matrix.moodle-branch }} has no Report Builder test helper. Do not set \$plugin->supported."
             exit 1
           fi
-
-          echo "Found Report Builder testcase: $RB_TESTCASE"
+          echo "Report Builder helpers: ${RB_HELPER:-none}"
+          echo "Report Builder testcase: ${RB_TESTCASE:-none}"
           moodle-plugin-ci phpunit --fail-on-warning
 
       - name: Mark cancelled as failed
