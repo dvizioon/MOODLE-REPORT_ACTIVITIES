@@ -1,7 +1,6 @@
-# Compatibilidade cruzada Moodle 4 / 5 (Report Builder core = 4.0+).
-# Moodle 3.x não tem core_reportbuilder — fora da matrix de propósito.
-# Objetivo: ver em quais branches o plugin passa PHPUnit para decidir
-# $plugin->requires / $plugin->supported no Marketplace.
+# Compat probe: Moodle 4.5+ / 5.x (API de entities moderna).
+# Moodle ≤ 4.4 usa get_default_table_aliases + APIs antigas — incompatível com este plugin.
+# Objetivo: ver em quais branches o PHPUnit passa para decidir requires/supported.
 #
 # Em branches != 5.2 o job baixa temporariamente o requires (não altera o repo).
 # allow_fail=true nas sondagens; 5.2 continua bloqueante.
@@ -33,27 +32,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # ---- Moodle 4 ----
-          - php: "8.0"
-            moodle-branch: MOODLE_400_STABLE
-            postgres: postgres:14
-            allow_fail: true
-          - php: "8.0"
-            moodle-branch: MOODLE_401_STABLE
-            postgres: postgres:14
-            allow_fail: true
-          - php: "8.1"
-            moodle-branch: MOODLE_402_STABLE
-            postgres: postgres:14
-            allow_fail: true
-          - php: "8.1"
-            moodle-branch: MOODLE_403_STABLE
-            postgres: postgres:14
-            allow_fail: true
-          - php: "8.1"
-            moodle-branch: MOODLE_404_STABLE
-            postgres: postgres:15
-            allow_fail: true
+          # ---- Moodle 4.5 (mínimo teórico com API de entities atual) ----
           - php: "8.1"
             moodle-branch: MOODLE_405_STABLE
             postgres: postgres:15
@@ -90,9 +69,9 @@ jobs:
       - name: Relax version.php for probe (non-5.2)
         if: matrix.moodle-branch != 'MOODLE_502_STABLE'
         run: |
-          # Moodle 4.0.0 — mínimo teórico com Report Builder core
-          sed -i 's/\$plugin->requires[[:space:]]*=.*/$plugin->requires = 2022041900;/' plugin/version.php
-          sed -i 's/\$plugin->supported[[:space:]]*=.*/$plugin->supported = [400, 502];/' plugin/version.php
+          # Moodle 4.5.0 — abaixo disso a API de entities é outra geração
+          sed -i 's/\$plugin->requires[[:space:]]*=.*/$plugin->requires = 2024100700;/' plugin/version.php
+          sed -i 's/\$plugin->supported[[:space:]]*=.*/$plugin->supported = [405, 502];/' plugin/version.php
           echo "Probe requires/supported:"
           grep -E 'requires|supported' plugin/version.php
 
@@ -127,18 +106,7 @@ jobs:
 
       - name: PHPUnit
         if: ${{ !cancelled() }}
-        run: |
-          set -e
-          # 4.0/4.2: class in helpers.php | 4.1+/4.3–5.0: tests/classes/ | 5.1+: public/…
-          RB_HELPER=$(find moodle -path '*/reportbuilder/tests/helpers.php' -print -quit 2>/dev/null || true)
-          RB_TESTCASE=$(find moodle -path '*/reportbuilder/tests/classes/core_reportbuilder_testcase.php' -print -quit 2>/dev/null || true)
-          if [[ -z "$RB_HELPER" && -z "$RB_TESTCASE" ]]; then
-            echo "::error title=INCOMPATIBLE::${{ matrix.moodle-branch }} has no Report Builder test helper. Do not set \$plugin->supported."
-            exit 1
-          fi
-          echo "Report Builder helpers: ${RB_HELPER:-none}"
-          echo "Report Builder testcase: ${RB_TESTCASE:-none}"
-          moodle-plugin-ci phpunit --fail-on-warning
+        run: moodle-plugin-ci phpunit --fail-on-warning
 
       - name: Mark cancelled as failed
         if: ${{ cancelled() }}

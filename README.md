@@ -292,7 +292,7 @@ php public/admin/cli/upgrade.php
 ### Done (v1.3.8)
 
 - [x] Removed **Activities reports** from Site administration / Reports (use Report Builder only)
-- [x] GitHub Actions: CI 5.2 (PHP/DB) + `ci-security.yml` + `ci-compat.yml` (probe Moodle 4/5)
+- [x] GitHub Actions: CI 5.2 (PHP/DB) + `ci-security.yml` + `ci-compat.yml` (probe 4.5 / 5.x)
 
 ### Done (v1.3.7)
 

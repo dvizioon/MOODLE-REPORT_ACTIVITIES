@@ -54,6 +54,21 @@ class grade_item extends base {
     }
 
     /**
+     * Register columns and filters (required abstract on Moodle ≤ 5.1; same logic as 5.2 base).
+     *
+     * @return self
+     */
+    public function initialise(): self {
+        foreach ($this->get_available_columns() as $column) {
+            $this->add_column($column);
+        }
+        foreach ($this->get_available_filters() as $filter) {
+            $this->add_filter($filter);
+        }
+        return $this;
+    }
+
+    /**
      * Returns list of all available columns.
      *
      * @return column[]
