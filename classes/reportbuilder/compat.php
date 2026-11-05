@@ -29,26 +29,27 @@ namespace report_activities\reportbuilder;
  */
 class compat {
     /**
-     * Alias classes that only exist as namespaced types from Moodle 4.2/4.3 onward.
+     * Alias classes that only exist as namespaced types on older Moodle branches.
      */
     public static function boot(): void {
-        if (!class_exists(\core\lang_string::class, false) && class_exists(\lang_string::class)) {
-            class_alias(\lang_string::class, \core\lang_string::class);
-        }
         // Do not alias \context to \core\context. That name is a class, and a class_alias
         // there blocks the namespace core\context\system on Moodle 4.0 and 4.1.
+        self::alias_if_missing(\lang_string::class, \core\lang_string::class);
         self::alias_if_missing(\context_system::class, \core\context\system::class);
         self::alias_if_missing(\context_course::class, \core\context\course::class);
     }
 
     /**
-     * class_alias into a missing namespaced class, without autoload (4.0/4.1 have no such class).
+     * class_alias only when the target really does not exist.
+     *
+     * class_exists() must autoload. Without that, a class that exists but is not loaded yet
+     * looks missing, and class_alias warns "Cannot declare class ..., name is already in use".
      *
      * @param string $source Existing class.
      * @param string $target Namespaced name.
      */
     private static function alias_if_missing(string $source, string $target): void {
-        if (class_exists($target, false) || !class_exists($source)) {
+        if (class_exists($target) || !class_exists($source)) {
             return;
         }
         class_alias($source, $target);
