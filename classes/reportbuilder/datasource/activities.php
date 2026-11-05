@@ -106,13 +106,9 @@ class activities extends datasource {
             ON {$coursecatalias}.id = {$coursealias}.category");
         $this->add_entity($coursecatentity);
 
-        $this->add_all_from_entities([
-            $userentity,
-            $courseentity,
-            $coursecatentity,
-            $gradeitementity,
-            $gradeentity,
-        ]);
+        // No argument: Moodle ≤ 5.1 only matches entity names, 5.2 also accepts instances.
+        // Passing the objects themselves registered zero columns on 4.5–5.1.
+        $this->add_all_from_entities();
     }
 
     /**

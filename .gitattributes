@@ -11,3 +11,7 @@ screenshots/** export-ignore
 # IDE stubs are not part of the shipped plugin.
 tests/stubs/ export-ignore
 tests/stubs/** export-ignore
+
+# Packaging script stays in git, not in the Marketplace zip.
+scripts/ export-ignore
+scripts/** export-ignore
