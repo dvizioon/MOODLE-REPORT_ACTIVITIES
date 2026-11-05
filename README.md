@@ -102,14 +102,14 @@ All activities that have a **grade item** in the gradebook (`itemtype = mod`):
 
 ## Screenshots
 
-Screenshots from version **1.3.7** (`screenshots/1.3.7/`).
+Screenshots for the current release (`screenshots/`).
 
 ### Create a report from the Activities source
 
 Goal: open Report Builder and start a custom report using **Activities** (grades per activity).
 
 <p align="center">
-  <img src="screenshots/1.3.7/create-grades-by-activity.png" alt="Create report from Activities source" width="90%" />
+  <img src="screenshots/create-grades-by-activity.png" alt="Create report from Activities source" width="90%" />
   <br /><em>New report dialogue with source Activities</em>
 </p>
 
@@ -118,7 +118,7 @@ Goal: open Report Builder and start a custom report using **Activities** (grades
 Goal: start a custom report using **Final grade** (course gradebook total).
 
 <p align="center">
-  <img src="screenshots/1.3.7/create-final-grade.png" alt="Create report from Final grade source" width="90%" />
+  <img src="screenshots/create-final-grade.png" alt="Create report from Final grade source" width="90%" />
   <br /><em>New report dialogue with source Final grade</em>
 </p>
 
@@ -127,7 +127,7 @@ Goal: start a custom report using **Final grade** (course gradebook total).
 Goal: view student grades for each graded activity (user, course, activity, percentage, final grade).
 
 <p align="center">
-  <img src="screenshots/1.3.7/grades-by-activity.png" alt="Grades by activity report" width="90%" />
+  <img src="screenshots/grades-by-activity.png" alt="Grades by activity report" width="90%" />
   <br /><em>Report built from the Activities source</em>
 </p>
 
@@ -136,7 +136,7 @@ Goal: view student grades for each graded activity (user, course, activity, perc
 Goal: view the course total already calculated in the gradebook (weights and aggregation applied).
 
 <p align="center">
-  <img src="screenshots/1.3.7/grades-by-gradebook.png" alt="Course final grades report" width="90%" />
+  <img src="screenshots/grades-by-gradebook.png" alt="Course final grades report" width="90%" />
   <br /><em>Report built from the Final grade source</em>
 </p>
 
@@ -145,7 +145,7 @@ Goal: view the course total already calculated in the gradebook (weights and agg
 Goal: limit who appears in the report (for example by course or user).
 
 <p align="center">
-  <img src="screenshots/1.3.7/create-conditions.png" alt="Report conditions" width="90%" />
+  <img src="screenshots/create-conditions.png" alt="Report conditions" width="90%" />
   <br /><em>Conditions panel in the report editor</em>
 </p>
 
@@ -154,7 +154,7 @@ Goal: limit who appears in the report (for example by course or user).
 Goal: control who can view the custom report.
 
 <p align="center">
-  <img src="screenshots/1.3.7/access-report.png" alt="Report access settings" width="90%" />
+  <img src="screenshots/access-report.png" alt="Report access settings" width="90%" />
   <br /><em>Access tab for the custom report</em>
 </p>
 
@@ -163,7 +163,7 @@ Goal: control who can view the custom report.
 Goal: present the same data in a card layout when preferred.
 
 <p align="center">
-  <img src="screenshots/1.3.7/grid-view.png" alt="Card view of the report" width="90%" />
+  <img src="screenshots/grid-view.png" alt="Card view of the report" width="90%" />
   <br /><em>Card view of report results</em>
 </p>
 
@@ -242,11 +242,14 @@ activities/
 │   │   └── coursefinal_test.php
 │   └── behat/activities_report.feature
 └── screenshots/
-    ├── entrarRelatorio.png
-    ├── escolherAtividade.png
-    ├── contextosRelatorio.png
-    ├── visaoRelatorio.png
-    └── vizualizarRelatorio.png
+    ├── create-grades-by-activity.png
+    ├── create-final-grade.png
+    ├── grades-by-activity.png
+    ├── grades-by-gradebook.png
+    ├── create-conditions.png
+    ├── access-report.png
+    ├── grid-view.png
+    └── logo.png
 ```
 
 ## Installation

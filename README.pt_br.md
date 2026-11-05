@@ -102,14 +102,14 @@ Todas que têm **item de nota** no caderno (`itemtype = mod`):
 
 ## Screenshots
 
-Imagens da versão **1.3.7** (`screenshots/1.3.7/`).
+Imagens da versão atual (`screenshots/`).
 
 ### Criar relatório pela fonte Atividades
 
 Objetivo: abrir o Construtor de Relatórios e criar um relatório com a fonte **Atividades** (notas por atividade).
 
 <p align="center">
-  <img src="screenshots/1.3.7/create-grades-by-activity.png" alt="Criar relatório pela fonte Atividades" width="90%" />
+  <img src="screenshots/create-grades-by-activity.png" alt="Criar relatório pela fonte Atividades" width="90%" />
   <br /><em>Diálogo Novo relatório com a fonte Atividades</em>
 </p>
 
@@ -118,7 +118,7 @@ Objetivo: abrir o Construtor de Relatórios e criar um relatório com a fonte **
 Objetivo: criar um relatório com a fonte **Nota final** (total do caderno do curso).
 
 <p align="center">
-  <img src="screenshots/1.3.7/create-final-grade.png" alt="Criar relatório pela fonte Nota final" width="90%" />
+  <img src="screenshots/create-final-grade.png" alt="Criar relatório pela fonte Nota final" width="90%" />
   <br /><em>Diálogo Novo relatório com a fonte Nota final</em>
 </p>
 
@@ -127,7 +127,7 @@ Objetivo: criar um relatório com a fonte **Nota final** (total do caderno do cu
 Objetivo: ver as notas do aluno em cada atividade avaliada (usuário, curso, atividade, porcentagem, nota final).
 
 <p align="center">
-  <img src="screenshots/1.3.7/grades-by-activity.png" alt="Relatório de notas por atividade" width="90%" />
+  <img src="screenshots/grades-by-activity.png" alt="Relatório de notas por atividade" width="90%" />
   <br /><em>Relatório montado com a fonte Atividades</em>
 </p>
 
@@ -136,7 +136,7 @@ Objetivo: ver as notas do aluno em cada atividade avaliada (usuário, curso, ati
 Objetivo: ver o total do curso já calculado no caderno de notas (pesos e agregação aplicados).
 
 <p align="center">
-  <img src="screenshots/1.3.7/grades-by-gradebook.png" alt="Relatório de nota final do curso" width="90%" />
+  <img src="screenshots/grades-by-gradebook.png" alt="Relatório de nota final do curso" width="90%" />
   <br /><em>Relatório montado com a fonte Nota final</em>
 </p>
 
@@ -145,7 +145,7 @@ Objetivo: ver o total do curso já calculado no caderno de notas (pesos e agrega
 Objetivo: limitar quem aparece no relatório (por exemplo por curso ou usuário).
 
 <p align="center">
-  <img src="screenshots/1.3.7/create-conditions.png" alt="Condições do relatório" width="90%" />
+  <img src="screenshots/create-conditions.png" alt="Condições do relatório" width="90%" />
   <br /><em>Painel de condições no editor</em>
 </p>
 
@@ -154,7 +154,7 @@ Objetivo: limitar quem aparece no relatório (por exemplo por curso ou usuário)
 Objetivo: controlar quem pode ver o relatório personalizado.
 
 <p align="center">
-  <img src="screenshots/1.3.7/access-report.png" alt="Acesso ao relatório" width="90%" />
+  <img src="screenshots/access-report.png" alt="Acesso ao relatório" width="90%" />
   <br /><em>Aba Acesso do relatório</em>
 </p>
 
@@ -163,7 +163,7 @@ Objetivo: controlar quem pode ver o relatório personalizado.
 Objetivo: apresentar os mesmos dados em layout de cards.
 
 <p align="center">
-  <img src="screenshots/1.3.7/grid-view.png" alt="Visualização em cards" width="90%" />
+  <img src="screenshots/grid-view.png" alt="Visualização em cards" width="90%" />
   <br /><em>Resultados do relatório em cards</em>
 </p>
 
@@ -242,11 +242,14 @@ activities/
 │   │   └── coursefinal_test.php
 │   └── behat/activities_report.feature
 └── screenshots/
-    ├── entrarRelatorio.png
-    ├── escolherAtividade.png
-    ├── contextosRelatorio.png
-    ├── visaoRelatorio.png
-    └── vizualizarRelatorio.png
+    ├── create-grades-by-activity.png
+    ├── create-final-grade.png
+    ├── grades-by-activity.png
+    ├── grades-by-gradebook.png
+    ├── create-conditions.png
+    ├── access-report.png
+    ├── grid-view.png
+    └── logo.png
 ```
 
 ## Instalação
