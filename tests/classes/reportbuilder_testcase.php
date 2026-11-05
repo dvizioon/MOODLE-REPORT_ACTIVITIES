@@ -38,10 +38,14 @@ if (class_exists(\core_reportbuilder\tests\core_reportbuilder_testcase::class)) 
 } else {
     global $CFG;
     $loaded = false;
-    foreach ([
-        $CFG->dirroot . '/reportbuilder/tests/helpers.php',
-        $CFG->dirroot . '/public/reportbuilder/tests/helpers.php',
-    ] as $helper) {
+    // Join a relative core path. Moodle 4.0 keeps the helper beside reportbuilder/tests.
+    // Moodle 5.1+ keeps the same file under public/.
+    $relatives = [
+        'reportbuilder/tests/helpers.php',
+        'public/reportbuilder/tests/helpers.php',
+    ];
+    foreach ($relatives as $relative) {
+        $helper = $CFG->dirroot . '/' . $relative;
         if (is_readable($helper)) {
             require_once($helper);
             $loaded = true;
