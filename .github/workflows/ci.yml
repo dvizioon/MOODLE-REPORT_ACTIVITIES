@@ -1,5 +1,5 @@
-# Gate Marketplace (AUTO TEST): Moodle 5.2 × PHP × DB — alinhado ao version.php.
-# Probe 4.5 / 5.x: ver workflow ci-compat.yml (não altera requires no git).
+# Gate Marketplace (AUTO TEST): Moodle 5.2 × PHP × DB.
+# Moodle 4.0–5.1: ver workflow ci-compat.yml. version.php declara supported 400–502.
 
 name: Moodle Plugin CI
 
@@ -21,7 +21,7 @@ jobs:
           POSTGRES_HOST_AUTH_METHOD: 'trust'
         ports:
           - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
+        options: --health-cmd "pg_isready -U postgres" --health-interval 10s --health-timeout 5s --health-retries 3
 
       mariadb:
         image: ${{ matrix.database == 'mariadb' && 'mariadb:11' || '' }}
@@ -81,7 +81,7 @@ jobs:
           echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
 
       - name: Install moodle-plugin-ci
-        run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
+        run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1 --db-user=postgres
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}

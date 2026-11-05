@@ -32,6 +32,8 @@ use stdClass;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class course_total extends base {
+    use alias_trait;
+
     /**
      * Database tables that this entity uses.
      *
@@ -77,7 +79,7 @@ class course_total extends base {
         [
             'grade_grades' => $grade,
             'grade_items' => $gradeitem,
-        ] = $this->get_table_aliases();
+        ] = $this->aliasmap();
 
         // SQL only identifies the row. The shown number is the official course total.
         $columns[] = (new column(

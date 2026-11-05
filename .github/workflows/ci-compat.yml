@@ -1,9 +1,6 @@
-# Compat probe: Moodle 4.5+ / 5.x (API de entities moderna).
-# Moodle ≤ 4.4 usa get_default_table_aliases + APIs antigas — incompatível com este plugin.
-# Objetivo: ver em quais branches o PHPUnit passa para decidir requires/supported.
-#
-# Em branches != 5.2 o job baixa temporariamente o requires (não altera o repo).
-# allow_fail=true nas sondagens; 5.2 continua bloqueante.
+# Moodle 4.0–5.2. version.php declara supported [400, 502].
+# Postgres healthcheck usa -U postgres. Sem isso o Docker entra como root e o log enche de
+# FATAL: role "root" does not exist.
 
 name: CI Moodle compat
 
@@ -26,31 +23,44 @@ jobs:
           POSTGRES_HOST_AUTH_METHOD: trust
         ports:
           - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        options: --health-cmd "pg_isready -U postgres" --health-interval 10s --health-timeout 5s --health-retries 5
 
     strategy:
       fail-fast: false
       matrix:
         include:
-          # ---- Moodle 4.5 (mínimo teórico com API de entities atual) ----
+          - php: "8.0"
+            moodle-branch: MOODLE_400_STABLE
+            postgres: postgres:13
+            allow_fail: false
+          - php: "8.0"
+            moodle-branch: MOODLE_401_STABLE
+            postgres: postgres:13
+            allow_fail: false
+          - php: "8.0"
+            moodle-branch: MOODLE_402_STABLE
+            postgres: postgres:14
+            allow_fail: false
+          - php: "8.1"
+            moodle-branch: MOODLE_403_STABLE
+            postgres: postgres:14
+            allow_fail: false
+          - php: "8.1"
+            moodle-branch: MOODLE_404_STABLE
+            postgres: postgres:15
+            allow_fail: false
           - php: "8.1"
             moodle-branch: MOODLE_405_STABLE
             postgres: postgres:15
-            allow_fail: true
-          - php: "8.3"
-            moodle-branch: MOODLE_405_STABLE
-            postgres: postgres:15
-            allow_fail: true
-
-          # ---- Moodle 5 ----
+            allow_fail: false
           - php: "8.2"
             moodle-branch: MOODLE_500_STABLE
             postgres: postgres:16
-            allow_fail: true
+            allow_fail: false
           - php: "8.3"
             moodle-branch: MOODLE_501_STABLE
             postgres: postgres:16
-            allow_fail: true
+            allow_fail: false
           - php: "8.3"
             moodle-branch: MOODLE_502_STABLE
             postgres: postgres:17
@@ -65,15 +75,6 @@ jobs:
         with:
           path: plugin
           persist-credentials: false
-
-      - name: Relax version.php for probe (non-5.2)
-        if: matrix.moodle-branch != 'MOODLE_502_STABLE'
-        run: |
-          # Moodle 4.5.0 — abaixo disso a API de entities é outra geração
-          sed -i 's/\$plugin->requires[[:space:]]*=.*/$plugin->requires = 2024100700;/' plugin/version.php
-          sed -i 's/\$plugin->supported[[:space:]]*=.*/$plugin->supported = [405, 502];/' plugin/version.php
-          echo "Probe requires/supported:"
-          grep -E 'requires|supported' plugin/version.php
 
       - uses: shivammathur/setup-php@v2
         with:
@@ -91,7 +92,7 @@ jobs:
           echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
 
       - name: Install Moodle + plugin
-        run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
+        run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1 --db-user=postgres
         env:
           DB: pgsql
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}

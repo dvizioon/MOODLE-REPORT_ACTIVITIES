@@ -18,10 +18,11 @@ declare(strict_types=1);
 
 namespace report_activities\reportbuilder\datasource;
 
-use core_course\reportbuilder\local\entities\course_category;
 use core_reportbuilder\datasource;
 use core_reportbuilder\local\entities\{course, user};
 use core_reportbuilder\local\helpers\database;
+use report_activities\reportbuilder\compat;
+use report_activities\reportbuilder\datasource_trait;
 use report_activities\reportbuilder\local\entities\{grade, grade_item};
 
 /**
@@ -32,6 +33,8 @@ use report_activities\reportbuilder\local\entities\{grade, grade_item};
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class activities extends datasource {
+    use datasource_trait;
+
     /**
      * Return user friendly name of the report source.
      *
@@ -72,10 +75,10 @@ class activities extends datasource {
         $gradeentity->add_join($gradeitemjoin);
         $this->add_entity($gradeentity);
 
-        // Re-use the same grade_items join (do not JOIN twice).
-        $gradeitementity = (new grade_item())
-            ->set_table_join_alias('grade_items', $gradeitemalias);
-        $gradeitementity->add_joins($gradeentity->get_joins());
+        // Same grade_items alias on both entities. get_joins() is protected on Moodle 4.0.
+        $gradeitementity = new grade_item();
+        compat::share_table_alias($gradeitementity, 'grade_items', $gradeitemalias);
+        $gradeitementity->add_join($gradeitemjoin);
         $this->add_entity($gradeitementity);
 
         // User.
@@ -90,25 +93,31 @@ class activities extends datasource {
             $paramguest => (int) $CFG->siteguest,
         ]);
 
-        // Course (needs grade_items join first).
+        // Course (needs the grade item join first).
         $courseentity = new course();
         $coursealias = $courseentity->get_table_alias('course');
-        $courseentity->add_joins($gradeentity->get_joins());
-        $courseentity->add_join("JOIN {course} {$coursealias}
-            ON {$coursealias}.id = {$gradeitemalias}.courseid");
+        $coursejoin = "JOIN {course} {$coursealias}
+            ON {$coursealias}.id = {$gradeitemalias}.courseid";
+        $courseentity->add_join($gradeitemjoin);
+        $courseentity->add_join($coursejoin);
         $this->add_entity($courseentity);
 
-        // Course category.
-        $coursecatentity = new course_category();
-        $coursecatalias = $coursecatentity->get_table_alias('course_categories');
-        $coursecatentity->add_joins($courseentity->get_joins());
-        $coursecatentity->add_join("LEFT JOIN {course_categories} {$coursecatalias}
-            ON {$coursecatalias}.id = {$coursealias}.category");
-        $this->add_entity($coursecatentity);
+        $entities = [$userentity, $courseentity, $gradeitementity, $gradeentity];
 
-        // No argument: Moodle ≤ 5.1 only matches entity names, 5.2 also accepts instances.
-        // Passing the objects themselves registered zero columns on 4.5–5.1.
-        $this->add_all_from_entities();
+        // Course category exists from Moodle 4.1.
+        $categoryclass = compat::course_category_class();
+        if ($categoryclass !== null) {
+            $coursecatentity = new $categoryclass();
+            $coursecatalias = $coursecatentity->get_table_alias('course_categories');
+            $coursecatentity->add_join($gradeitemjoin);
+            $coursecatentity->add_join($coursejoin);
+            $coursecatentity->add_join("LEFT JOIN {course_categories} {$coursecatalias}
+                ON {$coursecatalias}.id = {$coursealias}.category");
+            $this->add_entity($coursecatentity);
+            $entities[] = $coursecatentity;
+        }
+
+        $this->publish_entities($entities);
     }
 
     /**

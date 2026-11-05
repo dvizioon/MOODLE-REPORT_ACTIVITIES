@@ -33,6 +33,8 @@ use stdClass;
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class grade_item extends base {
+    use alias_trait;
+
     /**
      * Database tables that this entity uses.
      *

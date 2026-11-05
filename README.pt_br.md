@@ -7,7 +7,7 @@
 <h1 align="center">MOODLE REPORT ACTIVITIES</h1>
 
 <p align="center">
-  Fonte do <strong>Report Builder</strong> para Moodle 5.2<br />
+  Fonte do <strong>Report Builder</strong> para Moodle 4.0 até 5.2<br />
   Aluno · Curso · Tipo de atividade · Nota da atividade · Nota final do curso · % · Nota 0-10
 </p>
 
@@ -201,7 +201,7 @@ Objetivo: apresentar os mesmos dados em layout de cards.
 
 ## Tecnologias / API Moodle
 
-- **Moodle 5.2** - `public/report/…`
+- **Moodle 4.0 até 5.2** - `public/report/…` no 5.1+, `report/…` no 4.x
 - **core_reportbuilder** - datasource + entities
 - **Gradebook** - `grade_items` / `grade_grades`
 - **Entidades core** - `user`, `course`, `course_category`
