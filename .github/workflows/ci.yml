@@ -81,7 +81,10 @@ jobs:
           echo "NVM_DIR=$HOME/.nvm" >> $GITHUB_ENV
 
       - name: Install moodle-plugin-ci
-        run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1 --db-user=postgres
+        # Do not pass --db-user. pgsql defaults to postgres; mariadb defaults to root
+        # (MARIADB_ALLOW_EMPTY_ROOT_PASSWORD). Forcing postgres makes MariaDB return
+        # ERROR 1045 Access denied for user 'postgres'.
+        run: moodle-plugin-ci install --plugin ./plugin --db-host=127.0.0.1
         env:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
