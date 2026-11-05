@@ -50,8 +50,9 @@ class activities extends datasource {
      * @return bool
      */
     public static function is_available(): bool {
-        /** @var \core\context $context */
-        $context = \core\context\system::instance();
+        // context_system exists on Moodle 4.0–5.2. core\context\system starts at 4.2.
+        compat::boot();
+        $context = \context_system::instance();
         return has_capability('report/activities:view', $context);
     }
 
