@@ -6,7 +6,7 @@ Full release notes: [upgrade/](https://github.com/dvizioon/MOODLE-REPORT-ACTIVIT
 
 ## 1.3.8
 
-- Build 2026110500
+- Build 2026110700
 - Compatibility with Moodle 4.0 to 5.2
 - Removal of the redundant Site administration → Reports menu entry
 - Expanded continuous integration suite

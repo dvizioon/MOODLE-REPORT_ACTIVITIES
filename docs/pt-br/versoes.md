@@ -6,7 +6,7 @@ Notas completas: [upgrade/](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES
 
 ## 1.3.8
 
-- Build 2026110500
+- Build 2026110700
 - Compatibilidade com Moodle 4.0 a 5.2
 - Remoção da entrada redundante em Administração do site → Relatórios
 - Ampliação da suíte de integração contínua

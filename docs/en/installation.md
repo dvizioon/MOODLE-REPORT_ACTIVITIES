@@ -7,7 +7,7 @@
 | Item | Value |
 |------|-------|
 | Plugin version | 1.3.8 |
-| Build number | 2026110500 |
+| Build number | 2026110700 |
 | Moodle | 4.0 to 5.2 |
 | Maturity | Stable |
 

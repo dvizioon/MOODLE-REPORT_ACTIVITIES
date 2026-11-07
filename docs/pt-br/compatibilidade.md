@@ -9,7 +9,7 @@
 | Versão mínima do Moodle | 4.0.0 |
 | Intervalo suportado | 4.0 a 5.2 |
 | Versão do plugin | 1.3.8 |
-| Build | 2026110500 |
+| Build | 2026110700 |
 
 ## Matriz por versão
 
