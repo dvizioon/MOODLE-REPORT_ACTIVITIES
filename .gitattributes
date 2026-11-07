@@ -17,3 +17,7 @@ tests/stubs/** export-ignore
 # Packaging script stays in git, not in the Marketplace zip.
 scripts/ export-ignore
 scripts/** export-ignore
+
+# Marketplace copy-paste notes stay in git, not in the plugin zip.
+upgrade/release-note/ export-ignore
+upgrade/release-note/** export-ignore
