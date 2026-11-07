@@ -1,6 +1,8 @@
-# Keep screenshots and CI config in the repo; omit them from release archives.
+# Keep screenshots, docs and CI config in the repo; omit them from release archives.
 screenshots/ export-ignore
 screenshots/** export-ignore
+docs/ export-ignore
+docs/** export-ignore
 .github/ export-ignore
 .github/** export-ignore
 

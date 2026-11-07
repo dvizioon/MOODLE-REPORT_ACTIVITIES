@@ -171,6 +171,7 @@ Objetivo: apresentar os mesmos dados em layout de cards.
 
 ## Links
 
+- [Documentação (wiki)](docs/README.md)
 - [Repositório](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES)
 - [Issues / bug tracker](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES/issues)
 
