@@ -1,5 +1,7 @@
 # Instalação
 
+[Índice](index) · [English](../en/installation)
+
 ## Requisitos
 
 | Item | Valor |
@@ -9,7 +11,7 @@
 | Moodle | 4.0 a 5.2 |
 | Maturidade | Stable |
 
-Consulte também [Compatibilidade](compatibilidade.md).
+Consulte também [Compatibilidade](compatibilidade).
 
 ## Local de instalação
 
@@ -50,4 +52,4 @@ A partir da versão 1.3.8 não existe entrada própria em Administração do sit
 
 É necessária a capacidade `report/activities:view` no contexto do sistema. Por padrão, os papéis de gestor e criador de curso possuem essa capacidade.
 
-Guia de uso: [Como usar](guia/uso.md).
+Guia de uso: [Como usar](uso).

@@ -1,5 +1,7 @@
 # How to use
 
+[Index](index) · [Português](../pt-br/uso)
+
 ## Create a report
 
 1. Open **Site administration → Reports → Report builder → Custom reports**.
@@ -8,15 +10,15 @@
 4. Configure columns, filters and conditions.
 5. Set access (audience) and, if needed, schedules and export.
 
-![Conditions panel](../../../screenshots/create-conditions.png)
+![Conditions panel](https://raw.githubusercontent.com/dvizioon/MOODLE-REPORT-ACTIVITIES/master/screenshots/create-conditions.png)
 
 *Conditions in the report editor*
 
-![Access tab](../../../screenshots/access-report.png)
+![Access tab](https://raw.githubusercontent.com/dvizioon/MOODLE-REPORT-ACTIVITIES/master/screenshots/access-report.png)
 
 *Report access control*
 
-![Card view](../../../screenshots/grid-view.png)
+![Card view](https://raw.githubusercontent.com/dvizioon/MOODLE-REPORT-ACTIVITIES/master/screenshots/grid-view.png)
 
 *Results in card view*
 

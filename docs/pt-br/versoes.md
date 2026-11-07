@@ -1,6 +1,8 @@
 # Histórico de versões
 
-Notas completas de release estão em [`upgrade/`](../../upgrade/).
+[Índice](index) · [English](../en/versions)
+
+Notas completas: [upgrade/](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES/tree/master/upgrade)
 
 ## 1.3.8
 
@@ -9,7 +11,7 @@ Notas completas de release estão em [`upgrade/`](../../upgrade/).
 - Remoção da entrada redundante em Administração do site → Relatórios
 - Ampliação da suíte de integração contínua
 - Atualização da documentação e das capturas de tela
-- [Notas completas](../../upgrade/1.3.8.md)
+- [Notas completas](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES/blob/master/upgrade/1.3.8.md)
 
 ## 1.3.7
 

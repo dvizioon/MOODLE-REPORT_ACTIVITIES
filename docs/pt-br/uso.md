@@ -1,5 +1,7 @@
 # Como usar
 
+[Índice](index) · [English](../en/usage)
+
 ## Criar um relatório
 
 1. Abra **Administração do site → Relatórios → Construtor de relatórios → Relatórios personalizados**.
@@ -8,15 +10,15 @@
 4. Configure colunas, filtros e condições.
 5. Defina o acesso (audiência) e, se necessário, agendamentos e exportação.
 
-![Painel de condições](../../../screenshots/create-conditions.png)
+![Painel de condições](https://raw.githubusercontent.com/dvizioon/MOODLE-REPORT-ACTIVITIES/master/screenshots/create-conditions.png)
 
 *Condições no editor do relatório*
 
-![Aba Acesso](../../../screenshots/access-report.png)
+![Aba Acesso](https://raw.githubusercontent.com/dvizioon/MOODLE-REPORT-ACTIVITIES/master/screenshots/access-report.png)
 
 *Controle de acesso ao relatório*
 
-![Visualização em cartões](../../../screenshots/grid-view.png)
+![Visualização em cartões](https://raw.githubusercontent.com/dvizioon/MOODLE-REPORT-ACTIVITIES/master/screenshots/grid-view.png)
 
 *Resultados em visualização de cartões*
 

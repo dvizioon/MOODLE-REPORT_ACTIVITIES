@@ -1,5 +1,7 @@
 # Grade fields
 
+[Index](index) · [Português](../pt-br/campos)
+
 ## Activity and gradebook relationship
 
 | Field | Description | Origin |

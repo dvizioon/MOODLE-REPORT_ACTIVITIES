@@ -1,5 +1,7 @@
 # Campos de nota
 
+[Índice](index) · [English](../en/fields)
+
 ## Relação entre atividade e caderno de notas
 
 | Campo | Descrição | Origem |

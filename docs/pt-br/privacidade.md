@@ -1,5 +1,7 @@
 # Privacidade
 
+[Índice](index) · [English](../en/privacy)
+
 ## Declaração
 
 O plugin utiliza um provedor de privacidade nulo (`null provider`).

@@ -1,6 +1,8 @@
 # Version history
 
-Full release notes are available under [`upgrade/`](../../upgrade/).
+[Index](index) · [Português](../pt-br/versoes)
+
+Full release notes: [upgrade/](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES/tree/master/upgrade)
 
 ## 1.3.8
 
@@ -9,7 +11,7 @@ Full release notes are available under [`upgrade/`](../../upgrade/).
 - Removal of the redundant Site administration → Reports menu entry
 - Expanded continuous integration suite
 - Documentation and screenshot updates
-- [Full release notes](../../upgrade/1.3.8.md)
+- [Full release notes](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES/blob/master/upgrade/1.3.8.md)
 
 ## 1.3.7
 

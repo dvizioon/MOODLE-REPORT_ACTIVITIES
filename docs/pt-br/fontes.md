@@ -1,5 +1,7 @@
 # Fontes de relatório
 
+[Índice](index) · [English](../en/sources)
+
 ## Atividades
 
 Cada linha corresponde a um estudante e a uma atividade avaliada.
@@ -14,11 +16,11 @@ Características:
 
 Campos disponíveis incluem usuário, curso, categoria do curso (Moodle 4.1 ou superior), nome e tipo da atividade, nota bruta, nota final da atividade, porcentagem, nota na escala de 0 a 10, feedback e data da última alteração.
 
-![Diálogo Novo relatório com a fonte Atividades](../../../screenshots/create-grades-by-activity.png)
+![Diálogo Novo relatório com a fonte Atividades](https://raw.githubusercontent.com/dvizioon/MOODLE-REPORT-ACTIVITIES/master/screenshots/create-grades-by-activity.png)
 
 *Criação de relatório com a fonte Atividades*
 
-![Relatório com notas por atividade](../../../screenshots/grades-by-activity.png)
+![Relatório com notas por atividade](https://raw.githubusercontent.com/dvizioon/MOODLE-REPORT-ACTIVITIES/master/screenshots/grades-by-activity.png)
 
 *Exemplo de relatório gerado com a fonte Atividades*
 
@@ -35,11 +37,11 @@ Características:
 
 Campos disponíveis incluem usuário, curso, categoria do curso (Moodle 4.1 ou superior) e nota final do curso.
 
-![Diálogo Novo relatório com a fonte Nota final](../../../screenshots/create-final-grade.png)
+![Diálogo Novo relatório com a fonte Nota final](https://raw.githubusercontent.com/dvizioon/MOODLE-REPORT-ACTIVITIES/master/screenshots/create-final-grade.png)
 
 *Criação de relatório com a fonte Nota final*
 
-![Relatório com nota final do curso](../../../screenshots/grades-by-gradebook.png)
+![Relatório com nota final do curso](https://raw.githubusercontent.com/dvizioon/MOODLE-REPORT-ACTIVITIES/master/screenshots/grades-by-gradebook.png)
 
 *Exemplo de relatório gerado com a fonte Nota final*
 

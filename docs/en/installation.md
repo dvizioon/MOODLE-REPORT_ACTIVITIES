@@ -1,5 +1,7 @@
 # Installation
 
+[Index](index) · [Português](../pt-br/instalacao)
+
 ## Requirements
 
 | Item | Value |
@@ -9,7 +11,7 @@
 | Moodle | 4.0 to 5.2 |
 | Maturity | Stable |
 
-See also [Compatibility](compatibility.md).
+See also [Compatibility](compatibility).
 
 ## Install path
 
@@ -50,4 +52,4 @@ From version 1.3.8 there is no dedicated entry under Site administration → Rep
 
 The capability `report/activities:view` is required at system context. By default, managers and course creators have this capability.
 
-Usage guide: [How to use](guide/usage.md).
+Usage guide: [How to use](usage).

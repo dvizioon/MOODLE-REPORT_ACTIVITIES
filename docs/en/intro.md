@@ -1,5 +1,7 @@
 # Introduction
 
+[Index](index) · [Português](../pt-br/intro)
+
 **Report Activities** adds data sources to Moodle Report Builder. It does not replace or duplicate the native reporting interface: columns, filters, conditions, audiences, schedules and CSV/Excel export remain core Moodle features.
 
 ## Available sources
@@ -32,4 +34,4 @@ Report Builder
 - Does not include activities without a grade item (for example page, file, URL or label).
 - Does not replace the course grader report; it is intended for custom reports in Report Builder.
 
-Continue to [Installation](installation.md).
+Continue to [Installation](installation).

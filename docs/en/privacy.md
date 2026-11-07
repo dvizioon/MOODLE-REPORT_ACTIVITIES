@@ -1,5 +1,7 @@
 # Privacy
 
+[Index](index) · [Português](../pt-br/privacidade)
+
 ## Statement
 
 The plugin uses a null privacy provider.

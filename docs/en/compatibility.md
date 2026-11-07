@@ -1,5 +1,7 @@
 # Compatibility
 
+[Index](index) · [Português](../pt-br/compatibilidade)
+
 ## Official declaration
 
 | Field | Value |

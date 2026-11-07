@@ -1,5 +1,7 @@
 # Compatibilidade
 
+[Índice](index) · [English](../en/compatibility)
+
 ## Declaração oficial
 
 | Campo | Valor |

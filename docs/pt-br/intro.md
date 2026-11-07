@@ -1,5 +1,7 @@
 # Introdução
 
+[Índice](index) · [English](../en/intro)
+
 **Report Activities** adiciona fontes de dados ao Construtor de Relatórios do Moodle. Não substitui nem duplica a interface nativa de relatórios: as colunas, filtros, condições, audiências, agendamentos e exportações (CSV/Excel) permanecem recursos do próprio Moodle.
 
 ## Fontes disponíveis
@@ -32,4 +34,4 @@ Construtor de Relatórios
 - Não inclui atividades sem item de nota (por exemplo página, arquivo, URL ou rótulo).
 - Não substitui o relatório do avaliador no contexto do curso; destina-se a relatórios personalizados no Construtor de Relatórios.
 
-Continuar em [Instalação](instalacao.md).
+Continuar em [Instalação](instalacao).
