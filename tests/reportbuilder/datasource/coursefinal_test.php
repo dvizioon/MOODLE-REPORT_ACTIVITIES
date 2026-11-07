@@ -18,6 +18,8 @@ declare(strict_types=1);
 
 namespace report_activities\reportbuilder\datasource;
 
+defined('MOODLE_INTERNAL') || die();
+
 // Moodle 4.0 does not autoload plugin tests/classes/ — load the bridge explicitly.
 require_once(__DIR__ . '/../../classes/reportbuilder_testcase.php');
 

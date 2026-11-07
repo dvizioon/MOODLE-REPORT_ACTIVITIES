@@ -25,7 +25,7 @@
 require(__DIR__ . '/../../config.php');
 require_login();
 
-// context_system exists on Moodle 4.0–5.2. core\context\system starts at 4.2.
+// Context_system exists on Moodle 4.0-5.2; core\context\system starts at 4.2.
 $context = \context_system::instance();
 require_capability('report/activities:view', $context);
 
