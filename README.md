@@ -171,7 +171,7 @@ Goal: present the same data in a card layout when preferred.
 
 ## Links
 
-- [Documentation (EN / PT-BR)](docs/README.md)
+- [Documentation (EN / PT-BR)](https://github.com/dvizioon/MOODLE-REPORT_ACTIVITIES/wiki)
 - [Repository](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES)
 - [Issues / bug tracker](https://github.com/dvizioon/MOODLE-REPORT-ACTIVITIES/issues)
 
